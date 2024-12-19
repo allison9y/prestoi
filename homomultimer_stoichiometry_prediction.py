@@ -21,16 +21,6 @@ def is_dir(dirname):
     else:
         return dirname
 
-
-def is_file(filename):
-    """Checks if a file is an invalid file"""
-    if not os.path.exists(filename):
-        msg = "{0} doesn't exist".format(filename)
-        # raise argparse.ArgumentTypeError(msg)
-
-import os
-import argparse
-
 def is_file(filename):
     """Checks if the provided file exists and is accessible."""
     if not os.path.isfile(filename):  # Check if it's a file
