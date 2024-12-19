@@ -22,15 +22,23 @@ def is_dir(dirname):
         return dirname
 
 
-def check_dir(dirname):
-    return is_dir(dirname)
-
-
 def is_file(filename):
     """Checks if a file is an invalid file"""
     if not os.path.exists(filename):
         msg = "{0} doesn't exist".format(filename)
-        raise argparse.ArgumentTypeError(msg)
+        # raise argparse.ArgumentTypeError(msg)
+
+import os
+import argparse
+
+def is_file(filename):
+    """Checks if the provided file exists and is accessible."""
+    if not os.path.isfile(filename):  # Check if it's a file
+        print(f"{filename} is not a valid file.")
+        exit
+    return filename  # Return the valid filename as the value of the argument
+
+
 
 def read_fasta(file_path):
     target_name = os.path.splitext(os.path.basename(file_path))[0]
@@ -161,7 +169,7 @@ def generate_structures(op_path,target_name,stoichiometries,num_seeds):
 
 def result_print(op_path,target_name,stoichiometries):
     print("Stoichiometry, Maximum ranking score, Average ranking score, Number of models") 
-    data = [["stoic","max_ranking_score","avg_ranking_score,num_models"]]   
+    data = [["stoic","max_ranking_score","avg_ranking_score","num_models"]]   
     for stoic in stoichiometries:
         ranking_csv_path = f"{op_path}/{target_name}_{str(stoic)}/ranking_scores.csv"
         if os.path.exists(ranking_csv_path):
@@ -203,15 +211,16 @@ if __name__ == '__main__':
     --params_path : path to AlphaFold3 model parameters. Example --paramas_path /path/to/params
     """
     parser = argparse.ArgumentParser()
-    parser.add_argument('--input_fasta', type=is_file, required=True)
+    parser.add_argument('--input_fasta',type=is_file,required=True)
     parser.add_argument('--stoichiometries', required=True)
     parser.add_argument('--num_models', required=True)
     parser.add_argument('--output_path', type=is_dir, required=True)
     parser.add_argument('--db_path', type=is_dir, required=True)
     parser.add_argument('--params_path', type=is_dir, required=True)
 
-
     args = parser.parse_args()
+
+    print(args.output_path)
     target_name, sequence = read_fasta(args.input_fasta)
     stoichiometries = args.stoichiometries.split(",")
     stoichiometries = [i.lower() for i in stoichiometries]
