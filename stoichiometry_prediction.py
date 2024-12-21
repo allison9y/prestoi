@@ -25,6 +25,7 @@ def run_docker( op_path, params_path, db_path, target_name):
         "--model_dir=/root/models",
         "--output_dir=/root/af_output"
     ]
+    print("Running Docker Command : ", " ".join(docker_command))
 
     try:
         process = subprocess.Popen(
@@ -62,7 +63,7 @@ def generate_structures(op_path,target_name,sequences,stoichiometries,default_st
     print(f"####################### Running for default Stoichiometry: {default_stoichiometry} #######################\n")
     
     if not os.path.exists(f"{op_path}/{target_name}_{default_stoichiometry}/ranking_scores.csv"):
-        run_docker(op_path,params_path,db_path,f"{target_name}_{stoichiometries[0]}")
+        run_docker(op_path,params_path,db_path,f"{target_name}_{default_stoichiometry}")
     
     print(f"####################### Completed for Stoichiometry: {default_stoichiometry} #######################\n")
 
