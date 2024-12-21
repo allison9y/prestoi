@@ -7,38 +7,10 @@ import time
 import pandas as pd
 import csv
 import argparse
+from itertools import product
+from utils import makedir_if_not_exists,is_dir,is_file
+from protein_utils import read_fasta,create_default_stoichiometry,process_stoichiometry,validate_sequence_and_stoichiometry,read_common_data,generate_json
 
-alphabets = [chr(i) for i in range(65, 91)]
-
-def makedir_if_not_exists(directory):
-    os.makedirs(directory, exist_ok=True)
-
-def is_dir(dirname):
-    """Checks if a path is an actual directory"""
-    if not os.path.isdir(dirname):
-        msg = "{0} is not a directory".format(dirname)
-        raise argparse.ArgumentTypeError(msg)
-    else:
-        return dirname
-
-def is_file(filename):
-    """Checks if the provided file exists and is accessible."""
-    if not os.path.isfile(filename):  # Check if it's a file
-        print(f"{filename} is not a valid file.")
-        exit
-    return filename  # Return the valid filename as the value of the argument
-
-
-
-def read_fasta(file_path):
-    target_name = os.path.splitext(os.path.basename(file_path))[0]
-    sequence = ""
-    with open(file_path, "r") as fasta_file:
-        for line in fasta_file:
-            if line.startswith(">"):
-                continue
-            sequence += line.strip()
-    return target_name, sequence
 
 def run_docker( op_path, params_path, db_path, target_name):
     docker_command = [
@@ -79,82 +51,43 @@ def run_docker( op_path, params_path, db_path, target_name):
     except Exception as e:
         print(f"Error occurred: {str(e)}")
 
-def generate_structures(op_path,target_name,stoichiometries,num_seeds):
+    
+def generate_structures(op_path,target_name,sequences,stoichiometries,default_stoichiometry,num_seeds):
     makedir_if_not_exists(op_path)
     ip_json_path = os.path.join(op_path,"input_jsons")
     makedir_if_not_exists(ip_json_path)
 
+    generate_json(target_name,default_stoichiometry,num_seeds,ip_json_path,sequences,common_data={},default_stoichiometry=True)
+
+    print(f"####################### Running for default Stoichiometry: {default_stoichiometry} #######################\n")
     
-    json_skeleton = {
-        "name": "",
-        "sequences": [],
-        "modelSeeds": [i for i in range(num_seeds)],
-        "dialect": "alphafold3",
-        "version": 1
-    }
-    # Processing for default stoichiometry A2
-    stoichiometry_count = int(stoichiometries[0][1])  # Extract number of sequences from "A2", "A3", etc.
-    json_skeleton["name"] = target_name+"_"+str(stoichiometries[0])
-    json_skeleton["sequences"] = [
-        {
-            "protein": {
-                "id": [alphabets[i] for i in range(stoichiometry_count)],
-                "sequence": sequence
-            }
-        }
-    ]
-
-
-
-    with open(f'{ip_json_path}/{target_name}_{str(stoichiometries[0])}.json', 'w') as f:
-        json.dump(json_skeleton, f,indent=4)
-
-
-    print(f"####################### Running for Stoichiometry: {stoichiometries[0]} #######################\n")
-    if not os.path.exists(f"{op_path}/{target_name}_{str(stoichiometries[0])}/ranking_scores.csv"):
-        
+    if not os.path.exists(f"{op_path}/{target_name}_{default_stoichiometry}/ranking_scores.csv"):
         run_docker(op_path,params_path,db_path,f"{target_name}_{stoichiometries[0]}")
-        print(f"####################### Completed for Stoichiometry: {stoichiometries[0]} #######################\n")
+    
+    print(f"####################### Completed for Stoichiometry: {default_stoichiometry} #######################\n")
 
-    common_data_path = f"{op_path}/{target_name}_{str(stoichiometries[0]).lower()}/{target_name}_{str(stoichiometries[0])}_data.json"
+    common_data_path = f"{op_path}/{target_name}_{default_stoichiometry}/{target_name}_{default_stoichiometry}_data.json"
     if not os.path.exists(common_data_path):
         print("program Completed without generating results")
-        exit
+        print(common_data_path)
+        exit()
 
     # Processing for other stoichiometries A3,A4......
     print(f"####################### Creating input.json for other stoichiometries #######################\n")
 
-    with open(common_data_path,"r") as f:
-        common_data = json.load(f)
-    unpairedMsa = common_data["sequences"][0]["protein"]["unpairedMsa"]
-    pairedMsa = common_data["sequences"][0]["protein"]["pairedMsa"]
-    templates = common_data["sequences"][0]["protein"]["templates"]
-
-
-    for stoic in stoichiometries[1:]:
-        stoichiometry_count = stoichiometry_count = int(stoic[1])
-        json_skeleton["name"] = f"{target_name}_{stoic}"
-        json_skeleton["sequences"] = [
-            {
-                "protein": {
-                    "id": [alphabets[i] for i in range(stoichiometry_count)],
-                    "sequence": sequence,
-                    "unpairedMsa": unpairedMsa,
-                    "pairedMsa": pairedMsa,
-                    "templates": templates
-                }
-            }
-        ]
-        with open(f'{ip_json_path}/{target_name}_{stoic}.json', 'w') as f:
-            json.dump(json_skeleton, f,indent=4)
+    common_data_dict = read_common_data(common_data_path)
+    
+    for stoic in stoichiometries:
+        if stoic != default_stoichiometry:
+            generate_json(target_name,stoic,num_seeds,ip_json_path,sequences,common_data=common_data_dict,default_stoichiometry=False)
         
     for stoic in stoichiometries[1:]:
-        print(f"####################### Running for Stoichiometry: {stoic} #######################\n")
-        ranking_csv_path = f"{op_path}/{target_name}_{str(stoic)}/ranking_scores.csv"
-        if not os.path.exists(ranking_csv_path):
-            run_docker(op_path,params_path,db_path,f"{target_name}_{stoic}")
-        
-        print(f"####################### Completed for Stoichiometry: {stoic} #######################\n")
+        if stoic != default_stoichiometry:
+            print(f"####################### Running for Stoichiometry: {stoic} #######################\n")
+            ranking_csv_path = f"{op_path}/{target_name}_{str(stoic)}/ranking_scores.csv"
+            if not os.path.exists(ranking_csv_path):
+                run_docker(op_path,params_path,db_path,f"{target_name}_{stoic}")
+            print(f"####################### Completed for Stoichiometry: {stoic} #######################\n")
 
 
 def result_print(op_path,target_name,stoichiometries):
@@ -183,19 +116,16 @@ def result_print(op_path,target_name,stoichiometries):
     stoic_max_ranking = max_ranking_row['stoic']
     stoic_avg_ranking = avg_ranking_row['stoic']
 
+    print("\n!!!!!!!!!!Final Results!!!!!!!!!!\n")
     print(f"Stoichiometry with highest Maximum ranking score: {stoic_max_ranking}")
     print(f"Stoichiometry with highest Average ranking score: {stoic_avg_ranking}")
 
-
-def comma_separated_list(value):
-    """Split a comma-separated string into a list."""
-    return value.split(",")
 
 if __name__ == '__main__':
     """
     --input_fasta : *.fasta file location 
     --stoichiometries : comma separated stoichiometries. Example --stoichiometries A2,A3,A4
-    --num_models : number of models to generate for each stoichiometry. Example --num_model 25  
+    --num_models : number of models to generate for each stoichiometry (in the multiple of 5). Example --num_model 25  
     --output_path : directory where output is to be saved. Example --output_path --/bmlfast/pngkg/examples/
     --db_path : path to Alphafold3 databases. Example --db_path /bmlfast/databases
     --params_path : path to AlphaFold3 model parameters. Example --paramas_path /path/to/params
@@ -210,10 +140,15 @@ if __name__ == '__main__':
 
     args = parser.parse_args()
 
-    print(args.output_path)
-    target_name, sequence = read_fasta(args.input_fasta)
+    target_name, sequences = read_fasta(args.input_fasta)
     stoichiometries = args.stoichiometries.split(",")
     stoichiometries = [i.lower() for i in stoichiometries]
+    unique_chains = process_stoichiometry(stoichiometries)
+    default_stoichiometry = create_default_stoichiometry(unique_chains)
+    if default_stoichiometry not in stoichiometries: stoichiometries.append(default_stoichiometry)
+    stoichiometries = sorted(stoichiometries)
+    if not validate_sequence_and_stoichiometry(sequences,unique_chains):
+        exit()
     num_seeds = int(int(args.num_models)/5)# each seed contributes to five models so
     output_path = args.output_path
     makedir_if_not_exists(output_path)
@@ -221,7 +156,7 @@ if __name__ == '__main__':
     db_path = args.db_path
     params_path = args.params_path
 
-    generate_structures(op_path,target_name,stoichiometries,num_seeds)
+    generate_structures(op_path,target_name,sequences,stoichiometries,default_stoichiometry,num_seeds)
     result_print(op_path,target_name,stoichiometries)
 
     
