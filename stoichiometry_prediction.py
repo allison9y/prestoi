@@ -57,7 +57,7 @@ def generate_structures(op_path,target_name,sequences,stoichiometries,default_st
     makedir_if_not_exists(op_path)
     ip_json_path = os.path.join(op_path,"input_jsons")
     makedir_if_not_exists(ip_json_path)
-
+    print(f"####################### Creating input.json for default stoichiometry #######################\n")
     generate_json(target_name,default_stoichiometry,num_seeds,ip_json_path,sequences,common_data={},default_stoichiometry=True)
 
     print(f"####################### Running for default Stoichiometry: {default_stoichiometry} #######################\n")
