@@ -40,3 +40,22 @@ docker run -it \
     --model_dir=/root/models \
     --output_dir=/root/af_output
 ```
+
+# Steps to run the stoichiometry prediction:
+- Copy the codes to alphafold3/ directory
+  ```
+  cp stoichiometry_prediction.py protein_utils.py utils.py /path/to/alphafold3
+  cd /path/to/alphafold3
+  ```
+- Run the stoichiometry_prediction.py
+## Homomultimer Example
+```
+python stoichiometry_prediction.py --input_fasta /path/to/input_fasta --stoichiometries A2,A3,A4 --output_path /path/to/output_dir --db_path /bmlfast/databases/ --params_path /path/to/alphafold3_databases --num_models 25
+```
+## Heteromultimer Example
+```
+python stoichiometry_prediction.py --input_fasta /path/to/input_fasta --stoichiometries A1B1,A2B2,A9B18 --output_path /path/to/output_dir --db_path /bmlfast/databases/ --params_path /path/to/alphafold3_databases --num_models 25
+```
+
+
+
