@@ -50,11 +50,11 @@ docker run -it \
 ## Run the stoichiometry_prediction.py
 ### Homomultimer Example
 ```
-python stoichiometry_prediction.py --input_fasta /path/to/input_fasta --stoichiometries A2,A3,A4 --output_path /path/to/output_dir --db_path /bmlfast/databases/ --params_path /path/to/alphafold3_databases --num_models 25
+python stoichiometry_prediction.py --input_fasta /path/to/input_fasta --stoichiometries A2,A3,A4 --output_path /path/to/output_dir --db_path /bmlfast/databases/ --params_path /path/to/alphafold3_parameters --num_models 25
 ```
 ### Heteromultimer Example
 ```
-python stoichiometry_prediction.py --input_fasta /path/to/input_fasta --stoichiometries A1B1,A2B2,A9B18 --output_path /path/to/output_dir --db_path /bmlfast/databases/ --params_path /path/to/alphafold3_databases --num_models 25
+python stoichiometry_prediction.py --input_fasta /path/to/input_fasta --stoichiometries A1B1,A2B2,A9B18 --output_path /path/to/output_dir --db_path /bmlfast/databases/ --params_path /path/to/alphafold3_parameters --num_models 25
 ```
 
 
