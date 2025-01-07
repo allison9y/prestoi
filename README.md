@@ -1,6 +1,8 @@
 # Prestoi
 Predicting stoichiometry of protein complexes using AlphaFold3 and structural templates
 
+![Program overview](images/test.png)
+
 # Begin with the installation of AlphaFold3 program using 
 https://github.com/google-deepmind/alphafold3/blob/main/docs/installation.md
 
@@ -44,8 +46,8 @@ docker run -it \
 # Steps to run the stoichiometry prediction:
 ## Copy the codes to alphafold3/ directory
   ```
-  cp stoichiometry_prediction.py protein_utils.py utils.py /path/to/alphafold3
-  cd /path/to/alphafold3
+  cp stoichiometry_prediction.py protein_utils.py utils.py /path/to/alphafold3/
+  cd /path/to/alphafold3/
   ```
 ## Run the stoichiometry_prediction.py
 ### Homomultimer Example
