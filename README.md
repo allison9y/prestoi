@@ -1,4 +1,4 @@
-# prestoi
+# Prestoi
 Predicting stoichiometry of protein complexes using AlphaFold3 and structural templates
 
 # Begin with the installation of AlphaFold3 program using 
