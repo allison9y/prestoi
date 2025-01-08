@@ -1,7 +1,7 @@
 # Prestoi
-Predicting stoichiometry of protein complexes using AlphaFold3 and structural templates
+## Predicting stoichiometry of protein complexes using AlphaFold3 and structural templates
 
-MULTICOM4 achieved remarkable success in the 16th world-wide Critical Assessment of Techniques for Protein Structure Prediction (CASP16) concluded in December 2024, ranking 1st in protein complex structure prediction without stoichiometry information (Phase 0). 
+Using this system, MULTICOM4 achieved remarkable success in the 16th world-wide Critical Assessment of Techniques for Protein Structure Prediction (CASP16) concluded in December 2024, ranking 1st in protein complex structure prediction without stoichiometry information (Phase 0). 
 
 ## The workflow of the Stoichiometry prediction system incorporated by MULTICOM4 in CASP16
 ![Program workflow](images/test.png)
