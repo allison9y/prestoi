@@ -81,7 +81,7 @@ Note: This step is only required to be run once. However, this can be run again 
 ## Run the stoichiometry_prediction.py
 ### Homomultimer Example
 ```
-python stoichiometry_prediction.py --input_fasta /path/to/T0270.fasta --stoichiometries A2,A3,A4 --output_path /path/to/output_dir  --num_models 25
+python stoichiometry_prediction.py --input_fasta /path/to/T0270.fasta --stoichiometries A2,A3,A4,A5,A6 --output_path /path/to/output_dir  --num_models 25
 ```
 
 Example output:
@@ -102,22 +102,24 @@ Stoichiometry with highest Average ranking score: A3
 
 ### Heteromultimer Example
 ```
-python stoichiometry_prediction.py --input_fasta /path/to/heteromultimer.fasta --stoichiometries A1B1,A2B2,A9B18 --output_path /path/to/output_dir  --num_models 25
+python stoichiometry_prediction.py --input_fasta /path/to/H0208.fasta --stoichiometries A1B1,A1B2,A1B3,A2B1,A2B2,A2B3,A3B1,A3B2,A3B3 --output_path /path/to/output_dir  --num_models 25
 ```
 Example output:
 ```
-Results for :  T0270
+Results for :  H0208
 Stoichiometry, Maximum ranking score, Average ranking score, Number of models
-A2,0.2917254023268046,0.22109988348999923,25
-A3,0.7356659644178217,0.6597546325500054,25
-A4,0.4619621540111602,0.4311053457765267,25
-A5,0.5574578147810352,0.47328416184068417,25
-A6,0.5455593923883584,0.4632293540739206,25
+A1B1,0.9579082725495932,0.9449554292400113,25
+A1B2,0.7371544130131423,0.5392889019139051,25
+A1B3,0.3972130584449553,0.35706427566899235,25
+A2B1,0.8581746709490917,0.7907662683364439,25
+A2B2,0.8726062852868774,0.6886386376967493,25
+A2B3,0.5666602198361169,-15.505672491186171,25
+A3B1,0.7930352000013527,0.7656765671860422,25
+A3B2,0.4979020342021519,0.40007180256585756,25
+A3B3,0.4140460397693776,0.37972803742981975,25
 
 !!!!!!!!!!Final Results!!!!!!!!!!
 
-Stoichiometry with highest Maximum ranking score: A3
-Stoichiometry with highest Average ranking score: A3
+Stoichiometry with highest Maximum ranking score: A1B1
+Stoichiometry with highest Average ranking score: A1B1
 ```
-
-
