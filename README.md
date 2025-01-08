@@ -1,18 +1,13 @@
 # Prestoi
 Predicting stoichiometry of protein complexes using AlphaFold3 and structural templates
 
-## The workflow of the Alphafold3 based stoichiometry prediction system
+## The workflow of the Stoichiometry prediction system incorporated by MULTICOM4 in CASP16
 ![Program workflow](images/test.png)
 
-This program handles the Alphafold3-based stoichiometry prediction in the above diagram.
+This program handles the Alphafold3-based stoichiometry prediction part in the above diagram.
 
-# Installation and setup
+# Installation and Configuration
 
-Clone the repository
-```
-git clone https://github.com/jianlin-cheng/prestoi
-cd prestoi
-```
 
 The program installation requires two steps
 1. Alphafold3 installation.
@@ -62,6 +57,12 @@ docker run -it \
 ```
 
 ## 2. Configure Alphafold3 to Stoichiometry prediction program
+
+Clone the repository
+```
+git clone https://github.com/jianlin-cheng/prestoi
+cd prestoi
+```
 ### Run the configure_af3.py to create a config.json file 
 ```
 python configure_af3.py --af3_program_path /path/to/alphafold3_program/ --af3_params_path /path/to/alphafold3_parameters/ --af3_db_path /path/to/alphafold3_databases/
@@ -123,3 +124,5 @@ A3B3,0.4140460397693776,0.37972803742981975,25
 Stoichiometry with highest Maximum ranking score: A1B1
 Stoichiometry with highest Average ranking score: A1B1
 ```
+
+
