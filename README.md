@@ -89,12 +89,12 @@ Note: This step is only required to be run once. However, this can be run again 
 ## Run the stoichiometry_prediction.py
 ### Homomultimer Example
 ```
-python stoichiometry_prediction.py --input_fasta /path/to/T0270.fasta --stoichiometries A2,A3,A4,A5,A6 --output_path /path/to/output_dir  --num_models 25
+python stoichiometry_prediction.py --input_fasta /path/to/T0270o.fasta --stoichiometries A2,A3,A4,A5,A6 --output_path /path/to/output_dir  --num_models 25
 ```
 
-Example output T0270 (True stoichiometry: A3):
+Example output T0270o (True stoichiometry: A3):
 ```
-Stoichiometry results for :  T0270
+Stoichiometry results for :  T0270o
 
 Stoichiometry, Maximum ranking score, Average ranking score, Number of models
 A2,0.2917254023268046,0.22109988348999923,25
@@ -109,6 +109,7 @@ Stoichiometry with the highest Maximum ranking score: A3
 Stoichiometry with the highest Average ranking score: A3
 ```
 
+![T0270o structures](images/t0270o.jpg)
 ### Heteromultimer Example
 ```
 python stoichiometry_prediction.py --input_fasta /path/to/H0208.fasta --stoichiometries A1B1,A1B2,A1B3,A2B1,A2B2,A2B3,A3B1,A3B2,A3B3 --output_path /path/to/output_dir  --num_models 25
@@ -133,5 +134,17 @@ A3B3,0.4140460397693776,0.37972803742981975,25
 Stoichiometry with the highest Maximum ranking score: A1B1
 Stoichiometry with the highest Average ranking score: A1B1
 ```
+![H0208 structures](images/h0208.jpg)
 
 
+
+
+
+## Citing This Work
+
+Any publication that discloses findings arising from using this program should cite:
+
+```bibtex
+@article{
+}
+```
