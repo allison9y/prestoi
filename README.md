@@ -1,11 +1,17 @@
 # Prestoi
 Predicting stoichiometry of protein complexes using AlphaFold3 and structural templates
 
-![Program overview](images/test.png)
+## The workflow of the Alphafold3 based stoichiometry prediction system
+![Program workflow](images/test.png)
 
 This program handles the Alphafold3-based stoichiometry prediction in the above diagram.
 
-# Begin with the installation of AlphaFold3 program using 
+# Installation
+The program installation requires two steps
+- Installation of Alphafold3 program
+- Configuration of Alphafold3 program in the Stoichiometry prediction program
+
+# 1 Begin with the installation of AlphaFold3 program using 
 https://github.com/google-deepmind/alphafold3/blob/main/docs/installation.md
 
 Test whether AlphaFold3 program is working properly
@@ -46,19 +52,22 @@ docker run -it \
 ```
 
 # Steps to run the stoichiometry prediction:
-## Copy the codes to alphafold3/ directory
+## Run the configure_af3.py to create a configuration file
+This step will create a config.json file in the working directory. 
+
   ```
-  cp stoichiometry_prediction.py protein_utils.py utils.py /path/to/alphafold3/
-  cd /path/to/alphafold3/
+  python configure_af3.py --af3_program_path /path/to/alphafold3_program/ --af3_params_path /path/to/alphafold3_parameters/ --af3_db_path /path/to/alphafold3_databases/
   ```
+Note: Make sure the paths are valid
+
 ## Run the stoichiometry_prediction.py
 ### Homomultimer Example
 ```
-python stoichiometry_prediction.py --input_fasta /path/to/input_fasta --stoichiometries A2,A3,A4 --output_path /path/to/output_dir --db_path /bmlfast/databases/ --params_path /path/to/alphafold3_parameters --num_models 25
+python stoichiometry_prediction.py --input_fasta /path/to/input_fasta --stoichiometries A2,A3,A4 --output_path /path/to/output_dir  --num_models 25
 ```
 ### Heteromultimer Example
 ```
-python stoichiometry_prediction.py --input_fasta /path/to/input_fasta --stoichiometries A1B1,A2B2,A9B18 --output_path /path/to/output_dir --db_path /bmlfast/databases/ --params_path /path/to/alphafold3_parameters --num_models 25
+python stoichiometry_prediction.py --input_fasta /path/to/input_fasta --stoichiometries A1B1,A2B2,A9B18 --output_path /path/to/output_dir  --num_models 25
 ```
 
 
