@@ -1,11 +1,24 @@
 # Prestoi
-Predicting stoichiometry of protein complexes using AlphaFold3 and structural templates
+## Predicting stoichiometry of protein complexes using AlphaFold3 and structural templates
 
-![Program overview](images/test.png)
+Using this system, MULTICOM4 achieved remarkable success in the 16th world-wide Critical Assessment of Techniques for Protein Structure Prediction (CASP16) concluded in December 2024, ranking 1st in protein complex structure prediction without stoichiometry information (Phase 0). 
 
-This program handles the Alphafold3-based stoichiometry prediction in the above diagram.
+## The workflow of the Stoichiometry Prediction system incorporated by MULTICOM4 in CASP16
+![Program workflow](images/test.png)
 
-# Begin with the installation of AlphaFold3 program using 
+### This program handles the Alphafold3-based stoichiometry prediction part in the above diagram.
+
+# Installation and Configuration
+
+
+The program installation requires two steps
+1. Alphafold3 installation.
+2. Configure Alphafold3 to Stoichiometry prediction program
+
+
+
+## 1. Alphafold3 installation. (Skip to step 2 if Alphafold3 has already been installed)
+### Begin with the installation of AlphaFold3 program using the following. 
 https://github.com/google-deepmind/alphafold3/blob/main/docs/installation.md
 
 Test whether AlphaFold3 program is working properly
@@ -45,21 +58,80 @@ docker run -it \
     --output_dir=/root/af_output
 ```
 
-# Steps to run the stoichiometry prediction:
-## Copy the codes to alphafold3/ directory
-  ```
-  cp stoichiometry_prediction.py protein_utils.py utils.py /path/to/alphafold3/
-  cd /path/to/alphafold3/
-  ```
+## 2. Configure Alphafold3 to Stoichiometry Prediction program
+
+Clone the repository
+```
+git clone https://github.com/jianlin-cheng/prestoi
+cd prestoi
+```
+Install pandas library
+```
+pip install pandas
+```
+
+### Run the configure_af3.py to create a config.json file 
+```
+python configure_af3.py --af3_program_path /path/to/alphafold3_program/ --af3_params_path /path/to/alphafold3_parameters/ --af3_db_path /path/to/alphafold3_databases/
+```
+This step will create a config.json file in the working directory with the following information.
+```json
+{
+  "af3_program_path": "/path/to/alphafold3_program/",
+  "af3_params_path": "/path/to/alphafold3_parameters/",
+  "af3_db_path": "/path/to/alphafold3_databases/"
+}
+```
+
+Note: This step is only required to be run once. However, this can be run again in case the paths change. Make sure the paths are valid.
+
+# Inference
 ## Run the stoichiometry_prediction.py
 ### Homomultimer Example
 ```
-python stoichiometry_prediction.py --input_fasta /path/to/input_fasta --stoichiometries A2,A3,A4 --output_path /path/to/output_dir --db_path /bmlfast/databases/ --params_path /path/to/alphafold3_parameters --num_models 25
-```
-### Heteromultimer Example
-```
-python stoichiometry_prediction.py --input_fasta /path/to/input_fasta --stoichiometries A1B1,A2B2,A9B18 --output_path /path/to/output_dir --db_path /bmlfast/databases/ --params_path /path/to/alphafold3_parameters --num_models 25
+python stoichiometry_prediction.py --input_fasta /path/to/T0270.fasta --stoichiometries A2,A3,A4,A5,A6 --output_path /path/to/output_dir  --num_models 25
 ```
 
+Example output T0270 (True stoichiometry: A3):
+```
+Stoichiometry results for :  T0270
+
+Stoichiometry, Maximum ranking score, Average ranking score, Number of models
+A2,0.2917254023268046,0.22109988348999923,25
+A3,0.7356659644178217,0.6597546325500054,25
+A4,0.4619621540111602,0.4311053457765267,25
+A5,0.5574578147810352,0.47328416184068417,25
+A6,0.5455593923883584,0.4632293540739206,25
+
+!!!!!!!!!!Final Selection!!!!!!!!!!
+
+Stoichiometry with highest Maximum ranking score: A3
+Stoichiometry with highest Average ranking score: A3
+```
+
+### Heteromultimer Example
+```
+python stoichiometry_prediction.py --input_fasta /path/to/H0208.fasta --stoichiometries A1B1,A1B2,A1B3,A2B1,A2B2,A2B3,A3B1,A3B2,A3B3 --output_path /path/to/output_dir  --num_models 25
+```
+Example output for H0208 (True stoichiometry: A1B1):
+```
+Stoichiometry results for :  H0208
+
+Stoichiometry, Maximum ranking score, Average ranking score, Number of models
+A1B1,0.9579082725495932,0.9449554292400113,25
+A1B2,0.7371544130131423,0.5392889019139051,25
+A1B3,0.3972130584449553,0.35706427566899235,25
+A2B1,0.8581746709490917,0.7907662683364439,25
+A2B2,0.8726062852868774,0.6886386376967493,25
+A2B3,0.5666602198361169,-15.505672491186171,25
+A3B1,0.7930352000013527,0.7656765671860422,25
+A3B2,0.4979020342021519,0.40007180256585756,25
+A3B3,0.4140460397693776,0.37972803742981975,25
+
+!!!!!!!!!!Final Selection!!!!!!!!!!
+
+Stoichiometry with highest Maximum ranking score: A1B1
+Stoichiometry with highest Average ranking score: A1B1
+```
 
 

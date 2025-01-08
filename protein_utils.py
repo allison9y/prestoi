@@ -30,11 +30,11 @@ def create_default_stoichiometry(chain_ids):
 def process_stoichiometry(stoichiometries):
     """Validate if the provided stoichiometries are consistend and extract unique chain IDs"""
     chain_list = []
-    for stoic in stoichiometries:
-        if not bool(re.fullmatch(r'([a-z]\d+)+', stoic)):
+    for stoichiometry in stoichiometries:
+        if not bool(re.fullmatch(r'([a-z]\d+)+', stoichiometry)):
             print("Invalid Stoichiometry Format. Make sure to provide A2,A3... or A1B1,A2B5..etc. (Alphabet followed by a number for each chain)")
             return []
-        chains = ','.join(re.findall(r'[A-Za-z]', stoic)).split(',')
+        chains = ','.join(re.findall(r'[A-Za-z]', stoichiometry)).split(',')
         chain_list.append(chains)
     if all(x == chain_list[0] for x in chain_list):
         return chain_list[0]
@@ -64,7 +64,7 @@ def read_common_data(common_data_path):
     return common_data_dict 
 
 
-def generate_json( target_name, stoichiometry, num_seeds, ip_json_path,sequences,common_data,default_stoichiometry):
+def generate_json( target_name, stoichiometry, num_seeds, ip_json_path,sequences,common_data,is_default_stoichiometry):
 
     used_alphabets = 0 
     json_skeleton = {
@@ -76,7 +76,7 @@ def generate_json( target_name, stoichiometry, num_seeds, ip_json_path,sequences
     }
     groups = [(group[0], int(group[1])) for group in re.findall(r"([a-z])(\d+)", stoichiometry)]
 
-    # Generate the sequences for this stoichiometry
+    # Generate the sequences for the given stoichiometry
     for group_index, (group_letter, count) in enumerate(groups):
         if len(sequences) <= group_index:
             raise ValueError(f"Not enough sequences provided for group {group_letter} in stoichiometry {stoichiometry}.")
@@ -84,7 +84,7 @@ def generate_json( target_name, stoichiometry, num_seeds, ip_json_path,sequences
         sequence = sequences[group_index]  # Get the sequence for the current group
         ids = [alphabets[used_alphabets + i] for i in range(count)]
         
-        if default_stoichiometry:
+        if is_default_stoichiometry:
             json_skeleton["sequences"].append(
                 {
                     "protein": {
