@@ -7,9 +7,18 @@ Predicting stoichiometry of protein complexes using AlphaFold3 and structural te
 This program handles the Alphafold3-based stoichiometry prediction in the above diagram.
 
 # Installation
+
+Clone the repository
+```
+git clone https://github.com/jianlin-cheng/prestoi
+cd prestoi
+```
+
 The program installation requires two steps
 - Installation of Alphafold3 program
 - Configuration of Alphafold3 program in the Stoichiometry prediction program
+
+
 
 ## 1 Alphafold3 installation. (Skip to step 2 if Alphafold3 has already been installed)
 ### Begin with the installation of AlphaFold3 program using the following. 
