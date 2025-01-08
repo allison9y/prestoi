@@ -63,6 +63,11 @@ Clone the repository
 git clone https://github.com/jianlin-cheng/prestoi
 cd prestoi
 ```
+Install pandas library
+```
+pip install pandas
+```
+
 ### Run the configure_af3.py to create a config.json file 
 ```
 python configure_af3.py --af3_program_path /path/to/alphafold3_program/ --af3_params_path /path/to/alphafold3_parameters/ --af3_db_path /path/to/alphafold3_databases/
