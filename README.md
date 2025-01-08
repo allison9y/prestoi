@@ -4,7 +4,7 @@
 Using this system, MULTICOM4 achieved remarkable success in the 16th world-wide Critical Assessment of Techniques for Protein Structure Prediction (CASP16) concluded in December 2024, ranking 1st in protein complex structure prediction without stoichiometry information (Phase 0). 
 
 ## The workflow of the Stoichiometry Prediction system incorporated by MULTICOM4 in CASP16
-![Program workflow](images/test.png)
+![Program workflow](images/workflow.png)
 
 ### This program handles the Alphafold3-based stoichiometry prediction part in the above diagram.
 
@@ -21,7 +21,7 @@ The program installation requires two steps
 ### Begin with the installation of AlphaFold3 program using the following. 
 https://github.com/google-deepmind/alphafold3/blob/main/docs/installation.md
 
-Test whether AlphaFold3 program is working properly
+Test whether AlphaFold3 program is working properly.
 Once you have installed AlphaFold 3, you can test your setup using e.g. the
 following input JSON file named `fold_input.json`:
 
