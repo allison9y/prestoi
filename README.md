@@ -15,8 +15,8 @@ cd prestoi
 ```
 
 The program installation requires two steps
-- Installation of Alphafold3 program
-- Configuration of Alphafold3 program in the Stoichiometry prediction program
+1. Alphafold3 installation.
+2. Configuration of Alphafold3 to Stoichiometry prediction
 
 
 
@@ -61,9 +61,9 @@ docker run -it \
     --output_dir=/root/af_output
 ```
 
-## 3 Configuration of Alphafold3 for Stoichiometry prediction
-### Run the configure_af3.py to create a configuration file
-This step will create a config.json file in the working directory. 
+## 3 Configuration of Alphafold3 to Stoichiometry prediction
+### Run the configure_af3.py to create a configuration file 
+This step will create a config.json file in the working directory. This step is only required to run once. However, this can be run again in case the paths change. 
 
   ```
   python configure_af3.py --af3_program_path /path/to/alphafold3_program/ --af3_params_path /path/to/alphafold3_parameters/ --af3_db_path /path/to/alphafold3_databases/
