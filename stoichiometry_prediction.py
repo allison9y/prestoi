@@ -19,7 +19,7 @@ def run_docker( af3_program_path,af3_params_path, af3_db_path,target_name,target
     try:
         os.chdir(af3_program_path)
         docker_command = [
-        "docker", "run", "--rm",  # Added --rm to automatically clean up container after execution
+        "docker", "run", "--rm",
         "--volume", f"{target_output_path}:/root/af_output",
         "--volume", f"{af3_params_path}:/root/models",
         "--volume", f"{af3_db_path}:/root/public_databases",
@@ -94,7 +94,6 @@ def generate_structures(af3_program_path,af3_params_path,af3_db_path,target_name
             print(f"####################### Running for Stoichiometry: {stoichiometry} #######################\n")
             ranking_csv_path = f"{target_output_path}/{target_name}_{str(stoichiometry)}/ranking_scores.csv"
             if not os.path.exists(ranking_csv_path):
-                # run_docker(af3_path,target_output_path,af3_params_path,db_path,f"{target_name}_{stoic}")
                 run_docker(af3_program_path,af3_params_path,af3_db_path,f"{target_name}_{stoichiometry}",target_output_path)
             print(f"####################### Completed for Stoichiometry: {stoichiometry} #######################\n")
 
@@ -127,16 +126,16 @@ def result_print(target_name,target_output_path,stoichiometries):
     stoic_avg_ranking = avg_ranking_row['stoic']
 
     print("\n!!!!!!!!!!Final Selection!!!!!!!!!!\n")
-    print(f"Stoichiometry with highest Maximum ranking score: {stoic_max_ranking}")
-    print(f"Stoichiometry with highest Average ranking score: {stoic_avg_ranking}")
+    print(f"Stoichiometry with the highest Maximum ranking score: {stoic_max_ranking}")
+    print(f"Stoichiometry with the highest Average ranking score: {stoic_avg_ranking}")
 
 
 if __name__ == '__main__':
     """
     --input_fasta : *.fasta file location 
-    --stoichiometries : comma separated stoichiometries. Example --stoichiometries A2,A3,A4
-    --num_models : number of models to generate for each stoichiometry (in the multiple of 5). Example --num_model 25  
-    --output_path : directory where output is to be saved. Example --output_path --/bmlfast/pngkg/examples/
+    --stoichiometries : Comma separated stoichiometries. Example --stoichiometries A2,A3,A4
+    --num_models : Number of models to generate for each stoichiometry (in the multiple of 5). Example --num_model 25  
+    --output_path : Directory where output is to be saved. Example --output_path --/home/user/examples/
     """
     parser = argparse.ArgumentParser()
     parser.add_argument('--input_fasta',type=is_file,required=True)
@@ -145,7 +144,7 @@ if __name__ == '__main__':
     parser.add_argument('--output_path', type=is_dir, required=True)
 
     args = parser.parse_args()
-
+    ## Get Alphafold3 configurations
     if not os.path.exists("config.json"):
         print("Please run configure_af3.py first to create a config.json file containing af3_program_path,af3_params_path, and af3_db_path")
         exit()
@@ -155,7 +154,7 @@ if __name__ == '__main__':
     af3_params_path = config["af3_params_path"]
     af3_db_path = config["af3_db_path"]
 
-    # receive inputs
+    # Receive and validate input information
     target_name, sequences = read_fasta(args.input_fasta)
     stoichiometries = args.stoichiometries.split(",")
     stoichiometries = [i.lower() for i in stoichiometries]
@@ -168,13 +167,15 @@ if __name__ == '__main__':
         exit()
     num_seeds = int(int(args.num_models)/5)# each seed contributes to five models so
 
+    #Setup output paths
     output_path = args.output_path
     makedir_if_not_exists(output_path)
     target_output_path = os.path.join(output_path,target_name)
 
-    
-
+    # Generate the required models for different stoichiometries using AlphaFold3 program.
     generate_structures(af3_program_path,af3_params_path,af3_db_path,target_name,target_output_path,sequences,stoichiometries,default_stoichiometry,num_seeds)
+    
+    # Print the results for the models generated for different stoichiometries above.
     result_print(target_name,target_output_path,stoichiometries)
 
     

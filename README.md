@@ -1,23 +1,23 @@
 # Prestoi
-## Predicting stoichiometry of protein complexes using AlphaFold3 and structural templates
+## Predicting stoichiometry of protein complexes using AlphaFold3 and structural templates.
 
-Using this system, MULTICOM4 achieved remarkable success in the 16th world-wide Critical Assessment of Techniques for Protein Structure Prediction (CASP16) concluded in December 2024, ranking 1st in protein complex structure prediction without stoichiometry information (Phase 0). 
+This system was built and tested to predict the correct stoichiometry for targets released without stochiometry information (Phase 0) in the 16th world-wide Critical Assessment of Techniques for Protein Structure Prediction (CASP16) concluded in December 2024.
 
-## The workflow of the Stoichiometry Prediction system incorporated by MULTICOM4 in CASP16
+Using this system, MULTICOM4 achieved remarkable success, ranking 1st in protein complex structure prediction for such targets. 
+
+## The workflow of the Stoichiometry Prediction system utilized by MULTICOM4 in CASP16
 ![Program workflow](images/workflow.png)
 
-### This program handles the Alphafold3-based stoichiometry prediction part in the above diagram.
+### This program handles the AlphaFold3-based stoichiometry prediction part in the above diagram.
 
 # Installation and Configuration
-
 
 The program installation requires two steps
 1. Alphafold3 installation.
 2. Configure Alphafold3 to Stoichiometry prediction program
 
 
-
-## 1. Alphafold3 installation. (Skip to step 2 if Alphafold3 has already been installed)
+## 1. AlphaFold3 installation. (Skip to step 2 if AlphaFold3 has already been installed)
 ### Begin with the installation of AlphaFold3 program using the following. 
 https://github.com/google-deepmind/alphafold3/blob/main/docs/installation.md
 
@@ -42,7 +42,7 @@ following input JSON file named `fold_input.json`:
 }
 ```
 
-You can then run AlphaFold 3 using the following command:
+You can then run AlphaFold 3 using the following command and check whether AlphaFold3 is running correctly:
 
 ```
 docker run -it \
@@ -58,7 +58,7 @@ docker run -it \
     --output_dir=/root/af_output
 ```
 
-## 2. Configure Alphafold3 to Stoichiometry Prediction program
+## 2. Configure AlphaFold3 to Stoichiometry Prediction program
 
 Clone the repository
 ```
@@ -74,7 +74,7 @@ pip install pandas
 ```
 python configure_af3.py --af3_program_path /path/to/alphafold3_program/ --af3_params_path /path/to/alphafold3_parameters/ --af3_db_path /path/to/alphafold3_databases/
 ```
-This step will create a config.json file in the working directory with the following information.
+This step will create a config.json file in the current working directory(prestoi) with the following information.
 ```json
 {
   "af3_program_path": "/path/to/alphafold3_program/",
@@ -83,7 +83,7 @@ This step will create a config.json file in the working directory with the follo
 }
 ```
 
-Note: This step is only required to be run once. However, this can be run again in case the paths change. Make sure the paths are valid.
+Note: This step is only required to be run once. However, this can be run again in case the given three paths change. Make sure the paths are valid.
 
 # Inference
 ## Run the stoichiometry_prediction.py
