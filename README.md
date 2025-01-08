@@ -105,8 +105,8 @@ A6,0.5455593923883584,0.4632293540739206,25
 
 !!!!!!!!!!Final Selection!!!!!!!!!!
 
-Stoichiometry with highest Maximum ranking score: A3
-Stoichiometry with highest Average ranking score: A3
+Stoichiometry with the highest Maximum ranking score: A3
+Stoichiometry with the highest Average ranking score: A3
 ```
 
 ### Heteromultimer Example
@@ -130,8 +130,8 @@ A3B3,0.4140460397693776,0.37972803742981975,25
 
 !!!!!!!!!!Final Selection!!!!!!!!!!
 
-Stoichiometry with highest Maximum ranking score: A1B1
-Stoichiometry with highest Average ranking score: A1B1
+Stoichiometry with the highest Maximum ranking score: A1B1
+Stoichiometry with the highest Average ranking score: A1B1
 ```
 
 
