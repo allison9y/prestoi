@@ -63,6 +63,9 @@ docker run -it \
 
 ## 2 Configure Alphafold3 to Stoichiometry prediction program
 ### Run the configure_af3.py to create a configuration file 
+```
+python configure_af3.py --af3_program_path /path/to/alphafold3_program/ --af3_params_path /path/to/alphafold3_parameters/ --af3_db_path /path/to/alphafold3_databases/
+```
 This step will create a config.json file in the working directory with the following information.
 ```json
 {
@@ -71,12 +74,8 @@ This step will create a config.json file in the working directory with the follo
   "af3_db_path": "/path/to/alphafold3_databases/"
 }
 ```
-This step is only required to be run once. However, this can be run again in case the paths change. 
 
-  ```
-  python configure_af3.py --af3_program_path /path/to/alphafold3_program/ --af3_params_path /path/to/alphafold3_parameters/ --af3_db_path /path/to/alphafold3_databases/
-  ```
-Note: Make sure the paths are valid.
+Note: This step is only required to be run once. However, this can be run again in case the paths change. Make sure the paths are valid.
 
 # Inference
 ## Run the stoichiometry_prediction.py
