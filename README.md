@@ -6,7 +6,7 @@ Predicting stoichiometry of protein complexes using AlphaFold3 and structural te
 
 This program handles the Alphafold3-based stoichiometry prediction in the above diagram.
 
-# Installation
+# Installation and setup
 
 Clone the repository
 ```
@@ -16,7 +16,7 @@ cd prestoi
 
 The program installation requires two steps
 1. Alphafold3 installation.
-2. Configuration of Alphafold3 to Stoichiometry prediction
+2. Configure Alphafold3 to Stoichiometry prediction program
 
 
 
@@ -61,15 +61,24 @@ docker run -it \
     --output_dir=/root/af_output
 ```
 
-## 3 Configuration of Alphafold3 to Stoichiometry prediction
+## 2 Configure Alphafold3 to Stoichiometry prediction program
 ### Run the configure_af3.py to create a configuration file 
-This step will create a config.json file in the working directory. This step is only required to run once. However, this can be run again in case the paths change. 
+This step will create a config.json file in the working directory with the following information.
+```json
+{
+  "af3_program_path": "/path/to/alphafold3_program/",
+  "af3_params_path": "/path/to/alphafold3_parameters/",
+  "af3_db_path": "/path/to/alphafold3_databases/"
+}
+```
+This step is only required to be run once. However, this can be run again in case the paths change. 
 
   ```
   python configure_af3.py --af3_program_path /path/to/alphafold3_program/ --af3_params_path /path/to/alphafold3_parameters/ --af3_db_path /path/to/alphafold3_databases/
   ```
-Note: Make sure the paths are valid. In case of changes of the above three paths in the future, make sure to rerun this program with correct paths.
+Note: Make sure the paths are valid.
 
+# Inference
 ## Run the stoichiometry_prediction.py
 ### Homomultimer Example
 ```
