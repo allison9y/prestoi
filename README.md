@@ -1,10 +1,12 @@
 # Prestoi
 Predicting stoichiometry of protein complexes using AlphaFold3 and structural templates
 
+MULTICOM4 achieved remarkable success in the 16th world-wide Critical Assessment of Techniques for Protein Structure Prediction (CASP16) concluded in December 2024, ranking 1st in protein complex structure prediction without stoichiometry information (Phase 0). 
+
 ## The workflow of the Stoichiometry prediction system incorporated by MULTICOM4 in CASP16
 ![Program workflow](images/test.png)
 
-This program handles the Alphafold3-based stoichiometry prediction part in the above diagram.
+### This program handles the Alphafold3-based stoichiometry prediction part in the above diagram.
 
 # Installation and Configuration
 
@@ -92,7 +94,8 @@ python stoichiometry_prediction.py --input_fasta /path/to/T0270.fasta --stoichio
 
 Example output:
 ```
-Results for :  T0270
+Stoichiometry results for :  T0270
+
 Stoichiometry, Maximum ranking score, Average ranking score, Number of models
 A2,0.2917254023268046,0.22109988348999923,25
 A3,0.7356659644178217,0.6597546325500054,25
@@ -100,7 +103,7 @@ A4,0.4619621540111602,0.4311053457765267,25
 A5,0.5574578147810352,0.47328416184068417,25
 A6,0.5455593923883584,0.4632293540739206,25
 
-!!!!!!!!!!Final Results!!!!!!!!!!
+!!!!!!!!!!Final Selection!!!!!!!!!!
 
 Stoichiometry with highest Maximum ranking score: A3
 Stoichiometry with highest Average ranking score: A3
@@ -112,7 +115,8 @@ python stoichiometry_prediction.py --input_fasta /path/to/H0208.fasta --stoichio
 ```
 Example output:
 ```
-Results for :  H0208
+Stoichiometry results for :  H0208
+
 Stoichiometry, Maximum ranking score, Average ranking score, Number of models
 A1B1,0.9579082725495932,0.9449554292400113,25
 A1B2,0.7371544130131423,0.5392889019139051,25
@@ -124,7 +128,7 @@ A3B1,0.7930352000013527,0.7656765671860422,25
 A3B2,0.4979020342021519,0.40007180256585756,25
 A3B3,0.4140460397693776,0.37972803742981975,25
 
-!!!!!!!!!!Final Results!!!!!!!!!!
+!!!!!!!!!!Final Selection!!!!!!!!!!
 
 Stoichiometry with highest Maximum ranking score: A1B1
 Stoichiometry with highest Average ranking score: A1B1
