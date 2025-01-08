@@ -11,7 +11,8 @@ The program installation requires two steps
 - Installation of Alphafold3 program
 - Configuration of Alphafold3 program in the Stoichiometry prediction program
 
-# 1 Begin with the installation of AlphaFold3 program using 
+## 1 Alphafold3 installation. (Skip to step 2 if Alphafold3 has already been installed)
+### Begin with the installation of AlphaFold3 program using the following. 
 https://github.com/google-deepmind/alphafold3/blob/main/docs/installation.md
 
 Test whether AlphaFold3 program is working properly
@@ -51,14 +52,14 @@ docker run -it \
     --output_dir=/root/af_output
 ```
 
-# Steps to run the stoichiometry prediction:
-## Run the configure_af3.py to create a configuration file
+## 3 Configuration of Alphafold3 for Stoichiometry prediction
+### Run the configure_af3.py to create a configuration file
 This step will create a config.json file in the working directory. 
 
   ```
   python configure_af3.py --af3_program_path /path/to/alphafold3_program/ --af3_params_path /path/to/alphafold3_parameters/ --af3_db_path /path/to/alphafold3_databases/
   ```
-Note: Make sure the paths are valid
+Note: Make sure the paths are valid. In case of changes of the above three paths in the future, make sure to rerun this program with correct paths.
 
 ## Run the stoichiometry_prediction.py
 ### Homomultimer Example
