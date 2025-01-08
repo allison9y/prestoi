@@ -87,6 +87,19 @@ Note: This step is only required to be run once. However, this can be run again 
 
 # Inference
 ## Run the stoichiometry_prediction.py
+The script requires 4 arguments:
+  1. input_fasta : file path to the target fasta file
+  2. stoichiometries : Comma separated valid stoichiometries intended to be tested
+  3. output_path : desired output path for the results
+  4. num_models : number of models intended to be generated for each stoichiometry
+
+ 
+This script will run all the required steps and print the results upon completion. Also /path/to/output_dir/ will contain a directory named after the input fasta file name which will contain:
+  - input_jsons/ which contains the json files generated to be fed as inputs to AlphaFold3
+  - AlphaFold3 outputs generated for different stoichiometries
+  - stoichiometry_results.csv which contains a table of maximum and average ranking scores for each stoichiometry.
+
+
 ### Homomultimer Example
 ```
 python stoichiometry_prediction.py --input_fasta /path/to/T0270o.fasta --stoichiometries A2,A3,A4,A5,A6 --output_path /path/to/output_dir  --num_models 25
@@ -114,6 +127,7 @@ Stoichiometry with the highest Average ranking score: A3
 ```
 python stoichiometry_prediction.py --input_fasta /path/to/H0208.fasta --stoichiometries A1B1,A1B2,A1B3,A2B1,A2B2,A2B3,A3B1,A3B2,A3B3 --output_path /path/to/output_dir  --num_models 25
 ```
+
 Example output for H0208 (True stoichiometry: A1B1):
 ```
 Stoichiometry results for :  H0208
