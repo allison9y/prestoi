@@ -3,8 +3,8 @@
 
 Using this system, MULTICOM4 achieved remarkable success in the 16th world-wide Critical Assessment of Techniques for Protein Structure Prediction (CASP16) concluded in December 2024, ranking 1st in protein complex structure prediction without stoichiometry information (Phase 0). 
 
-## The workflow of the Stoichiometry prediction system incorporated by MULTICOM4 in CASP16
-![Program workflow](images/test.png)
+## The workflow of the Stoichiometry Prediction system incorporated by MULTICOM4 in CASP16
+![Program workflow](images/workflow.png)
 
 ### This program handles the Alphafold3-based stoichiometry prediction part in the above diagram.
 
@@ -58,7 +58,7 @@ docker run -it \
     --output_dir=/root/af_output
 ```
 
-## 2. Configure Alphafold3 to Stoichiometry prediction program
+## 2. Configure Alphafold3 to Stoichiometry Prediction program
 
 Clone the repository
 ```
