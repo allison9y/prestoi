@@ -14,7 +14,7 @@ Using this system, MULTICOM4 achieved remarkable success, ranking 1st in protein
 
 The program installation requires two steps
 1. Alphafold3 installation.
-2. Configure Alphafold3 to Stoichiometry prediction program
+2. Configure Alphafold3 to Stoichiometry Prediction program
 
 
 ## 1. AlphaFold3 installation. (Skip to step 2 if AlphaFold3 has already been installed)
@@ -22,7 +22,7 @@ The program installation requires two steps
 https://github.com/google-deepmind/alphafold3/blob/main/docs/installation.md
 
 Test whether AlphaFold3 program is working properly.
-Once you have installed AlphaFold 3, you can test your setup using e.g. the
+Once you have installed AlphaFold3, you can test your setup using e.g. the
 following input JSON file named `fold_input.json`:
 
 ```json
