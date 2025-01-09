@@ -1,8 +1,8 @@
-# CASP16 Phase 0 target dataset
-## This is a dataset of CASP16 Phase 0 sequences along with the true stoichiometry information
+## CASP16 Phase 0 targets dataset
+### This sequences/ folder consists of CASP16 Phase 0 targets
 
+### The true stoichiometry of the targets are as follows:
 
-### Table
 | **Homo-multimers** |                 | **Hetero-multimers** |                 |
 |--------------------|-----------------|----------------------|-----------------|
 | **Target**         | **Stoichiometry** | **Target**         | **Stoichiometry** |
