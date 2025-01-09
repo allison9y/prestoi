@@ -89,7 +89,7 @@ Note: This step is only required to be run once. However, this can be run again 
 ## Run the stoichiometry_prediction.py
 The script requires 4 arguments:
   1. input_fasta : file path to the target fasta file
-  2. stoichiometries : Comma separated valid stoichiometries intended to be tested
+  2. stoichiometries : comma separated valid stoichiometries intended to be tested
   3. output_path : desired output path for the results
   4. num_models : number of models intended to be generated for each stoichiometry
 
@@ -105,7 +105,7 @@ This script will run all the required steps and print the results upon completio
 python stoichiometry_prediction.py --input_fasta /path/to/T0270o.fasta --stoichiometries A2,A3,A4,A5,A6 --output_path /path/to/output_dir  --num_models 25
 ```
 
-Example output T0270o (True stoichiometry: A3):
+Example output for T0270o (True stoichiometry: A3):
 ```
 Stoichiometry results for :  T0270o
 
