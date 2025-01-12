@@ -6,7 +6,7 @@ This system was built and tested to predict the correct stoichiometry for target
 Using this system, MULTICOM4 achieved remarkable success, ranking 1st in protein complex structure prediction for such targets. 
 
 ## The workflow of the Stoichiometry Prediction system utilized by MULTICOM4 in CASP16
-![Program workflow](images/workflow.png)
+![Program workflow](images/workflow.jpg)
 
 ### This program handles the AlphaFold3-based stoichiometry prediction part in the above diagram.
 
