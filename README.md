@@ -1,5 +1,5 @@
 # Prestoi
-## Predicting stoichiometry of protein complexes using AlphaFold3 and structural templates.
+## Predicting stoichiometry of protein complexes by integrating AlphaFold3 and templates.
 
 This system was built and tested to predict the correct stoichiometry for targets released without stochiometry information (Phase 0) in the 16th world-wide Critical Assessment of Techniques for Protein Structure Prediction (CASP16) concluded in December 2024.
 
@@ -156,8 +156,7 @@ Stoichiometry with the highest Average ranking score: A1B1
 
 ## Citing This Work
 
-Any publication that discloses findings arising from using this program should cite:
-
+If you find this work is useful, please cite: 
 ```bibtex
 @article{
 }
