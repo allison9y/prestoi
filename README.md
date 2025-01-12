@@ -156,8 +156,7 @@ Stoichiometry with the highest Average ranking score: A1B1
 
 ## Citing This Work
 
-Any publication that discloses findings arising from using this program should cite:
-
+If you find this work is useful, please cite: 
 ```bibtex
 @article{
 }
