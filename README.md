@@ -1,4 +1,4 @@
-# Prestoi
+# PreStoi
 ## Predicting stoichiometry of protein complexes by integrating AlphaFold3 and templates.
 
 This system was built and tested to predict the correct stoichiometry for targets released without stochiometry information (Phase 0) in the 16th world-wide Critical Assessment of Techniques for Protein Structure Prediction (CASP16) concluded in December 2024.
@@ -91,7 +91,7 @@ The script requires 4 arguments:
   1. input_fasta : file path to the target fasta file
   2. stoichiometries : comma separated valid stoichiometries intended to be tested
   3. output_path : desired output path for the results
-  4. num_models : number of models intended to be generated for each stoichiometry
+  4. num_models : number of models(in the multiple of 5) intended to be generated for each stoichiometry
 
  
 This script will run all the required steps and print the results upon completion. Also /path/to/output_dir/ will contain a directory named after the input fasta file name which will contain:
