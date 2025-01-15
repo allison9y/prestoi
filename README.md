@@ -126,7 +126,7 @@ Stoichiometry with the highest Average ranking score: A3
 
 | **Target T0270o**| **Visualization**              |
 | ----------------- |------------------------------- |
-| **A2**           | <img src="images/T0270o/A2.png" alt="A2" width="200px" height="200px" /> |
+| **A2**           | <img src="images/T0270o/A2.png" alt="A2" width="200px" height="150px" /> |
 | **A3**           | <img src="images/T0270o/A3.png" alt="A3" width="200px" height="200px" /> |
 | **A4**           | <img src="images/T0270o/A4.png" alt="A4" width="200px" height="200px" /> |
 | **A5**           | <img src="images/T0270o/A5.png" alt="A5" width="200px" height="200px" /> |
