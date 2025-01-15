@@ -122,7 +122,15 @@ Stoichiometry with the highest Maximum ranking score: A3
 Stoichiometry with the highest Average ranking score: A3
 ```
 
-![T0270o structures](images/t0270o.jpg)
+<!-- ![T0270o structures](images/t0270o.jpg) -->
+
+| **Target T0270o**| **Visualization**              |
+| ------------- |------------------------------- |
+| **A2**     |![A2](images/T0270o/A2.png)       |
+| **A3**     |![A3](images/T0270o/A3.png)       |
+| **A4**     |![A4](images/T0270o/A4.png)       |
+| **A5**    |![A5](images/T0270o/A5.png)       |
+| **A6**    |![A6](images/T0270o/A6.png)       |
 ### Heteromultimer Example
 ```
 python stoichiometry_prediction.py --input_fasta /path/to/H0208.fasta --stoichiometries A1B1,A1B2,A1B3,A2B1,A2B2,A2B3,A3B1,A3B2,A3B3 --output_path /path/to/output_dir  --num_models 25
