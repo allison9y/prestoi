@@ -126,11 +126,11 @@ Stoichiometry with the highest Average ranking score: A3
 
 | **Target T0270o**| **Visualization**              |
 | ----------------- |------------------------------- |
-| **A2**           | <img src="images/T0270o/A2.png" alt="A2" width="300px" height="250px" /> |
-| **A3**           | <img src="images/T0270o/A3.png" alt="A3" width="300px" height="250px" /> |
-| **A4**           | <img src="images/T0270o/A4.png" alt="A4" width="300px" height="250px" /> |
-| **A5**           | <img src="images/T0270o/A5.png" alt="A5" width="300px" height="250px" /> |
-| **A6**           | <img src="images/T0270o/A6.png" alt="A6" width="300px" height="250px" /> |
+| **A2**           | <img src="images/T0270o/A2.png" alt="A2" width="100px" height="100px" /> |
+| **A3**           | <img src="images/T0270o/A3.png" alt="A3" width="100px" height="100px" /> |
+| **A4**           | <img src="images/T0270o/A4.png" alt="A4" width="100px" height="100px" /> |
+| **A5**           | <img src="images/T0270o/A5.png" alt="A5" width="100px" height="100px" /> |
+| **A6**           | <img src="images/T0270o/A6.png" alt="A6" width="100px" height="100px" /> |
 
 ### Heteromultimer Example
 ```
@@ -159,15 +159,15 @@ Stoichiometry with the highest Average ranking score: A1B1
 ```
 | **Target H0208** | **Visualization**                |
 |------------------ |----------------------------------|
-| **A1B1**         | <img src="images/H0208/A1B1.png" alt="A1B1" width="300px" height="250px" /> |
-| **A1B2**         | <img src="images/H0208/A1B2.png" alt="A1B2" width="300px" height="250px" /> |
-| **A1B3**         | <img src="images/H0208/A1B3.png" alt="A1B3" width="300px" height="250px" /> |
-| **A2B1**         | <img src="images/H0208/A2B1.png" alt="A2B1" width="300px" height="250px" /> |
-| **A2B2**         | <img src="images/H0208/A2B2.png" alt="A2B2" width="300px" height="250px" /> |
-| **A2B3**         | <img src="images/H0208/A2B3.png" alt="A2B3" width="300px" height="250px" /> |
-| **A3B1**         | <img src="images/H0208/A3B1.png" alt="A3B1" width="300px" height="250px" /> |
-| **A3B2**         | <img src="images/H0208/A3B2.png" alt="A3B2" width="300px" height="250px" /> |
-| **A3B3**         | <img src="images/H0208/A3B3.png" alt="A3B3" width="300px" height="250px" /> |
+| **A1B1**         | <img src="images/H0208/A1B1.png" alt="A1B1" width="100px" height="100px" /> |
+| **A1B2**         | <img src="images/H0208/A1B2.png" alt="A1B2" width="100px" height="100px" /> |
+| **A1B3**         | <img src="images/H0208/A1B3.png" alt="A1B3" width="100px" height="100px" /> |
+| **A2B1**         | <img src="images/H0208/A2B1.png" alt="A2B1" width="100px" height="100px" /> |
+| **A2B2**         | <img src="images/H0208/A2B2.png" alt="A2B2" width="100px" height="100px" /> |
+| **A2B3**         | <img src="images/H0208/A2B3.png" alt="A2B3" width="100px" height="100px" /> |
+| **A3B1**         | <img src="images/H0208/A3B1.png" alt="A3B1" width="100px" height="100px" /> |
+| **A3B2**         | <img src="images/H0208/A3B2.png" alt="A3B2" width="100px" height="100px" /> |
+| **A3B3**         | <img src="images/H0208/A3B3.png" alt="A3B3" width="100px" height="100px" /> |
 
 
 
