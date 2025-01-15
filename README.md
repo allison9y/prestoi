@@ -126,11 +126,11 @@ Stoichiometry with the highest Average ranking score: A3
 
 | **Target T0270o**| **Visualization**              |
 | ----------------- |------------------------------- |
-| **A2**           | <img src="images/T0270o/A2.png" alt="A2" width="150px" /> |
-| **A3**           | <img src="images/T0270o/A3.png" alt="A3" width="150px" /> |
-| **A4**           | <img src="images/T0270o/A4.png" alt="A4" width="150px" /> |
-| **A5**           | <img src="images/T0270o/A5.png" alt="A5" width="150px" /> |
-| **A6**           | <img src="images/T0270o/A6.png" alt="A6" width="150px" /> |
+| **A2**           | <img src="images/T0270o/A2.png" alt="A2" width="400px" /> |
+| **A3**           | <img src="images/T0270o/A3.png" alt="A3" width="400px" /> |
+| **A4**           | <img src="images/T0270o/A4.png" alt="A4" width="400px" /> |
+| **A5**           | <img src="images/T0270o/A5.png" alt="A5" width="400px" /> |
+| **A6**           | <img src="images/T0270o/A6.png" alt="A6" width="400px" /> |
 
 ### Heteromultimer Example
 ```
@@ -157,7 +157,18 @@ A3B3,0.4140460397693776,0.37972803742981975,25
 Stoichiometry with the highest Maximum ranking score: A1B1
 Stoichiometry with the highest Average ranking score: A1B1
 ```
-![H0208 structures](images/h0208.jpg)
+| **Target H0208** | **Visualization**                |
+|------------------ |----------------------------------|
+| **A1B1**         | <img src="images/H0208/A1B1.png" alt="A1B1" width="400px" /> |
+| **A1B2**         | <img src="images/H0208/A1B2.png" alt="A1B2" width="400px" /> |
+| **A1B3**         | <img src="images/H0208/A1B3.png" alt="A1B3" width="400px" /> |
+| **A2B1**         | <img src="images/H0208/A2B1.png" alt="A2B1" width="400px" /> |
+| **A2B2**         | <img src="images/H0208/A2B2.png" alt="A2B2" width="400px" /> |
+| **A2B3**         | <img src="images/H0208/A2B3.png" alt="A2B3" width="400px" /> |
+| **A3B1**         | <img src="images/H0208/A3B1.png" alt="A3B1" width="400px" /> |
+| **A3B2**         | <img src="images/H0208/A3B2.png" alt="A3B2" width="400px" /> |
+| **A3B3**         | <img src="images/H0208/A3B3.png" alt="A3B3" width="400px" /> |
+
 
 
 
