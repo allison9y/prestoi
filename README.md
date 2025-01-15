@@ -158,8 +158,7 @@ Stoichiometry with the highest Average ranking score: A1B1
 
 If you find this work is useful, please cite: 
 ```bibtex
-@article{
-  Liu2025.01.12.632663,
+@article{Liu2025.01.12.632663,
 	author = {Liu, Jian and Neupane, Pawan and Cheng, Jianlin},
 	title = {Accurate Stoichiometry Prediction of Protein Complexes by Integrating AlphaFold3 and Template Information},
 	elocation-id = {2025.01.12.632663},
