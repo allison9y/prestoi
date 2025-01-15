@@ -125,12 +125,13 @@ Stoichiometry with the highest Average ranking score: A3
 <!-- ![T0270o structures](images/t0270o.jpg) -->
 
 | **Target T0270o**| **Visualization**              |
-| ------------- |------------------------------- |
-| **A2**     |![A2](images/T0270o/A2.png)       |
-| **A3**     |![A3](images/T0270o/A3.png)       |
-| **A4**     |![A4](images/T0270o/A4.png)       |
-| **A5**    |![A5](images/T0270o/A5.png)       |
-| **A6**    |![A6](images/T0270o/A6.png)       |
+| ----------------- |------------------------------- |
+| **A2**           | <img src="images/T0270o/A2.png" alt="A2" width="150px" /> |
+| **A3**           | <img src="images/T0270o/A3.png" alt="A3" width="150px" /> |
+| **A4**           | <img src="images/T0270o/A4.png" alt="A4" width="150px" /> |
+| **A5**           | <img src="images/T0270o/A5.png" alt="A5" width="150px" /> |
+| **A6**           | <img src="images/T0270o/A6.png" alt="A6" width="150px" /> |
+
 ### Heteromultimer Example
 ```
 python stoichiometry_prediction.py --input_fasta /path/to/H0208.fasta --stoichiometries A1B1,A1B2,A1B3,A2B1,A2B2,A2B3,A3B1,A3B2,A3B3 --output_path /path/to/output_dir  --num_models 25
