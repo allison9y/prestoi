@@ -159,15 +159,15 @@ Stoichiometry with the highest Average ranking score: A1B1
 ```
 | **Target H0208** | **Visualization**                |
 |------------------ |----------------------------------|
-| **A1B1**         | <img src="images/H0208/A1B1.png" alt="A1B1" width="250px" height="200px" /> |
-| **A1B2**         | <img src="images/H0208/A1B2.png" alt="A1B2" width="250px" height="200px" /> |
-| **A1B3**         | <img src="images/H0208/A1B3.png" alt="A1B3" width="250px" height="200px" /> |
-| **A2B1**         | <img src="images/H0208/A2B1.png" alt="A2B1" width="250px" height="200px" /> |
-| **A2B2**         | <img src="images/H0208/A2B2.png" alt="A2B2" width="250px" height="200px" /> |
-| **A2B3**         | <img src="images/H0208/A2B3.png" alt="A2B3" width="250px" height="200px" /> |
-| **A3B1**         | <img src="images/H0208/A3B1.png" alt="A3B1" width="250px" height="200px" /> |
-| **A3B2**         | <img src="images/H0208/A3B2.png" alt="A3B2" width="250px" height="200px" /> |
-| **A3B3**         | <img src="images/H0208/A3B3.png" alt="A3B3" width="250px" height="200px" /> |
+| **A1B1**         | <img src="images/H0208/A1B1.png" alt="A1B1" width="250px" height="250px" /> |
+| **A1B2**         | <img src="images/H0208/A1B2.png" alt="A1B2" width="250px" height="250px" /> |
+| **A1B3**         | <img src="images/H0208/A1B3.png" alt="A1B3" width="250px" height="250px" /> |
+| **A2B1**         | <img src="images/H0208/A2B1.png" alt="A2B1" width="250px" height="250px" /> |
+| **A2B2**         | <img src="images/H0208/A2B2.png" alt="A2B2" width="250px" height="250px" /> |
+| **A2B3**         | <img src="images/H0208/A2B3.png" alt="A2B3" width="250px" height="250px" /> |
+| **A3B1**         | <img src="images/H0208/A3B1.png" alt="A3B1" width="250px" height="250px" /> |
+| **A3B2**         | <img src="images/H0208/A3B2.png" alt="A3B2" width="250px" height="250px" /> |
+| **A3B3**         | <img src="images/H0208/A3B3.png" alt="A3B3" width="250px" height="250px" /> |
 
 
 
