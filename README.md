@@ -125,11 +125,11 @@ Stoichiometry with the highest Average ranking score: A3
 **Target T0270o**
 | **Stoichiometries** | **Maximum Ranking Score** | **Average Ranking Score** | **Visualization**              |
 | ------------------ | ------------------------- | -------------------------- | ------------------------------- |
-| **A2**            | 0.2917254023268046        | 0.22109988348999923        | <img src="images/T0270o/A2.gif" alt="A2" width="250px" height="200px" /> |
-| **A3**            | 0.7356659644178217        | 0.6597546325500054         | <img src="images/T0270o/A3.gif" alt="A3" width="250px" height="200px" /> |
-| **A4**            | 0.4619621540111602        | 0.4311053457765267         | <img src="images/T0270o/A4.gif" alt="A4" width="250px" height="200px" /> |
-| **A5**            | 0.5574578147810352        | 0.47328416184068417        | <img src="images/T0270o/A5.gif" alt="A5" width="250px" height="200px" /> |
-| **A6**            | 0.5455593923883584        | 0.4632293540739206         | <img src="images/T0270o/A6.gif" alt="A6" width="250px" height="200px" /> |
+| **A2**            | 0.2917254023268046        | 0.22109988348999923        | <img src="images/T0270o/A2.gif" alt="A2" width="320px" height="185px" /> |
+| **A3**            | 0.7356659644178217        | 0.6597546325500054         | <img src="images/T0270o/A3.gif" alt="A3" width="320px" height="185px" /> |
+| **A4**            | 0.4619621540111602        | 0.4311053457765267         | <img src="images/T0270o/A4.gif" alt="A4" width="320px" height="185px" /> |
+| **A5**            | 0.5574578147810352        | 0.47328416184068417        | <img src="images/T0270o/A5.gif" alt="A5" width="320px" height="185px" /> |
+| **A6**            | 0.5455593923883584        | 0.4632293540739206         | <img src="images/T0270o/A6.gif" alt="A6" width="320px" height="185px" /> |
 
 
 ### Heteromultimer Example
