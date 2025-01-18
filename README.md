@@ -180,7 +180,7 @@ If you find this work is useful, please cite:
 ```bibtex
 @article {Liu2025.01.12.632663,
 	author = {Liu, Jian and Neupane, Pawan and Cheng, Jianlin},
-	title = {Accurate Stoichiometry Prediction of Protein Complexes by Integrating AlphaFold3 and Template Information},
+	title = {Accurate Prediction of Protein Complex Stoichiometry by Integrating AlphaFold3 and Template Information},
 	elocation-id = {2025.01.12.632663},
 	year = {2025},
 	doi = {10.1101/2025.01.12.632663},
