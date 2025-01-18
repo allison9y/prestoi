@@ -178,7 +178,7 @@ Stoichiometry with the highest Average ranking score: A1B1
 
 If you find this work is useful, please cite: 
 
-Liu, J., Neupane, P., & Cheng, J. (2025). Accurate Prediction of Protein Complex Stoichiometry by Integrating AlphaFold3 and Template Information. bioRxiv, 2025-01
+Liu, J., Neupane, P., & Cheng, J. (2025). Accurate Prediction of Protein Complex Stoichiometry by Integrating AlphaFold3 and Template Information. bioRxiv, 2025-01 (https://www.biorxiv.org/content/10.1101/2025.01.12.632663v3)
 
 ```bibtex
 @article {Liu2025.01.12.632663,
@@ -188,8 +188,7 @@ Liu, J., Neupane, P., & Cheng, J. (2025). Accurate Prediction of Protein Complex
 	year = {2025},
 	doi = {10.1101/2025.01.12.632663},
 	publisher = {Cold Spring Harbor Laboratory},
-	URL = {https://www.biorxiv.org/content/early/2025/01/15/2025.01.12.632663},
-	eprint = {https://www.biorxiv.org/content/early/2025/01/15/2025.01.12.632663.full.pdf},
+	URL = {https://www.biorxiv.org/content/10.1101/2025.01.12.632663v3},
 	journal = {bioRxiv}
 }
 ```
