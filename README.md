@@ -177,6 +177,9 @@ Stoichiometry with the highest Average ranking score: A1B1
 ## Citing This Work
 
 If you find this work is useful, please cite: 
+
+Liu, J., Neupane, P., & Cheng, J. (2025). Accurate Prediction of Protein Complex Stoichiometry by Integrating AlphaFold3 and Template Information. bioRxiv, 2025-01
+
 ```bibtex
 @article {Liu2025.01.12.632663,
 	author = {Liu, Jian and Neupane, Pawan and Cheng, Jianlin},
