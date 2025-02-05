@@ -10,7 +10,24 @@ Using this system, MULTICOM4 achieved remarkable success, ranking 1st in protein
 
 ### This program handles the AlphaFold3-based stoichiometry prediction part in the above diagram.
 
+
+
+
 # Installation and Configuration
+
+## System Requirements
+
+- **Operating System**: Linux (Ubuntu 22.04 LTS recommended)  
+- **Storage**: Up to **1 TB** (SSD recommended) for genetic databases  
+- **GPU**: NVIDIA GPU with **Compute Capability 8.0+** (e.g., A100 80 GB, H100 80 GB)  
+  - Supports inputs up to **5,120 tokens** on a single A100 or H100 (80 GB)  
+- **RAM**: Minimum **64 GB** (especially for long targets) 
+
+## Time Estimates
+
+- **Installation Time**: Approximately **45 minutes** to download and set up databases (without SSD).  
+- **Average Runtime**: Varies by target length and GPU memory. Inputs with up to **5,120 tokens** fit on an NVIDIA A100 or H100 (80 GB).  
+
 
 The program installation requires two steps
 1. Alphafold3 installation.
