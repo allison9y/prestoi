@@ -89,7 +89,7 @@ def generate_structures(af3_program_path,af3_params_path,af3_db_path,target_name
         if stoichiometry != default_stoichiometry:
             generate_json(target_name,stoichiometry,num_seeds,ip_json_path,sequences,common_data=common_data_dict,is_default_stoichiometry=False)
         
-    for stoichiometry in stoichiometries[1:]:
+    for stoichiometry in stoichiometries:
         if stoichiometry != default_stoichiometry:
             print(f"####################### Running for Stoichiometry: {stoichiometry} #######################\n")
             ranking_csv_path = f"{target_output_path}/{target_name}_{str(stoichiometry)}/ranking_scores.csv"
@@ -98,7 +98,7 @@ def generate_structures(af3_program_path,af3_params_path,af3_db_path,target_name
             print(f"####################### Completed for Stoichiometry: {stoichiometry} #######################\n")
 
 
-def result_print(target_name,target_output_path,stoichiometries):
+def print_result(target_name,target_output_path,stoichiometries):
     print("\n\nStoichiometry results for : ",target_name.upper())
     print("\nStoichiometry, Maximum ranking score, Average ranking score, Number of models") 
     data = [["stoic","max_ranking_score","avg_ranking_score","num_models"]]   
@@ -176,7 +176,7 @@ if __name__ == '__main__':
     generate_structures(af3_program_path,af3_params_path,af3_db_path,target_name,target_output_path,sequences,stoichiometries,default_stoichiometry,num_seeds)
     
     # Print the results for the models generated for different stoichiometries above.
-    result_print(target_name,target_output_path,stoichiometries)
+    print_result(target_name,target_output_path,stoichiometries)
 
     
 
