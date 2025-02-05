@@ -188,7 +188,10 @@ Stoichiometry with the highest Average ranking score: A1B1
 | A3B3         | 0.4140460397693776        | 0.37972803742981975        | <img src="images/H0208/A3B3.gif" alt="A3B3" width="320px" height="185px" /> |
 
 
+## CASP16 Phase 0 Models Availability
 
+The models used to determine the stoichiometry for Phase 0 targets in CASP16 can be found at:
+https://zenodo.org/records/14807606
 
 
 ## Citing This Work
