@@ -195,7 +195,7 @@ https://zenodo.org/records/14807606
 
 ## Reproduction Instruction
 
-Most parts of the PreStoi method used in the blind CASP16 experiment can be automated and have been implemented in this GitHub repository. The automated results can be reproduced according to the following steps: (1) download the CASP16 Phase 0 protein complex dataset from this repository; (2) run PreStoi to propose stoichiometry candiates, generate AlphaFold3 strucutral models for them, and rank and select stoichiometries; (3) compare the stoichiometry prediction with the resutls in Table 1 in the manuscript describing PreStoi. You may also compare the AlphaFold3 structural models and their ranking scores that you obtain with the ones generated in the CASP16 experiment that are available at https://zenodo.org/records/14807606. 
+Most parts of the PreStoi method used in the blind CASP16 experiment can be automated and have been implemented in this GitHub repository. The automated results can be reproduced according to the following steps: (1) download the CASP16 Phase 0 protein complex dataset from this repository; (2) run PreStoi to propose stoichiometry candiates, generate AlphaFold3 strucutral models for them, and rank and select stoichiometries; (3) compare the stoichiometry prediction with the resutls in Table 1 in the manuscript describing PreStoi (https://www.biorxiv.org/content/10.1101/2025.01.12.632663v3). You may also compare the AlphaFold3 structural models and their ranking scores that you obtain with the ones generated in the CASP16 experiment that are available at https://zenodo.org/records/14807606. 
 
 ## Citing This Work
 
