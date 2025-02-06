@@ -23,7 +23,7 @@ Using this system, MULTICOM4 achieved remarkable success, ranking 1st in protein
   - Supports inputs up to **5,120 tokens** on a single A100 or H100 (80 GB)  
 - **RAM**: Minimum **64 GB** (especially for long targets) 
 
-## Time Estimates
+## Installation Time and Rutime Estimation
 
 - **Installation Time**: Approximately **45 minutes** to download and set up databases (without SSD).  
 - **Average Runtime**: Varies by target length, intended stoichiometries, and GPU memory. Inputs with up to **5,120 tokens** fit on an NVIDIA A100 or H100 (80 GB).
