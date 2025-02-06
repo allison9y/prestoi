@@ -35,7 +35,7 @@ The average runtime of testing all 9 stochichiometry candidates (A1B1, A1B2, A1B
 
 ## The PreStoi installation requires two steps:
 ### 1. Alphafold3 installation.
-### 2. Configure Alphafold3 to Stoichiometry Prediction program.
+### 2. Install PreStoi and Configure Alphafold3 for Stoichiometry Prediction.
 
 
 ## 1. AlphaFold3 installation. (Skip to step 2 if AlphaFold3 has already been installed)
@@ -79,7 +79,7 @@ docker run -it \
     --output_dir=/root/af_output
 ```
 
-## 2. Configure AlphaFold3 to Stoichiometry Prediction program
+## 2. Install PreStoi and Configure AlphaFold3 for Stoichiometry Prediction
 
 Clone the repository
 ```
