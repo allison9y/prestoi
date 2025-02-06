@@ -27,30 +27,13 @@ Using this system, MULTICOM4 achieved remarkable success, ranking 1st in protein
 
 - **Installation Time**: Approximately **45 minutes** to download and set up databases (without SSD).  
 - **Average Runtime**: Varies by target length, intended stoichiometries, and GPU memory. Inputs with up to **5,120 tokens** fit on an NVIDIA A100 or H100 (80 GB).
-### Example : H0208 Runtimes
-Sequence Lengths :- A : 328, B : 318 <br />
+### Example : H0208 Runtime
+Sequence Lengths : Chain A : 328, Chain B : 318 <br />
 Number of models generated per stoichiometry :- 25 <br />
 Device Configuration :- CPU : AMD EPYC 7643 2.3 Ghz, RAM : 512 GB, GPU : One Nvidia A100 (80 GB) <br />
+The average runtime of testing all 9 stochichiometry candidates (A1B1, A1B2, A1B3, A2B1, A2B2, A2B3, A3B1, A3B2, A3B3) is 266 minutes. 
 
-| **Stoichiometry** | **Total Sequence Length** | **Runtime** |
-| ------------------ | ------------------------- | -------------------------- |
-| A1B1            | 646        | 35 min       | 
-| A1B2            | 964        | 10 min       | 
-| A1B3            | 1282        | 22 min       | 
-| A2B1            | 974        | 11 min       |
-| A2B2            | 1292        | 21 min       |
-| A2B3            | 1610        | 40 min       | 
-| A3B1            | 1302        | 30 min       |
-| A3B2            | 1620        | 57 min       |
-| A3B3            | 1938        | 40 min       | 
-
-Total Runtime: 266 minutes (4 hours 26 minutes)
-
-Note : In order to save time and computational resource, the output of data pipeline(Genetic database search for MSA and Template) of the basic stoichiometry (for example: A2 for Homomultimer and A1B1, A1B1C1, A1B1C1D1, etc for Heteromultimer) is used directly for the other stoichiometries. This eliminates having to run the data pipeline for all of the stoichiometries separately which reduces the Runtime significantly. 
-
-
-
-The program installation requires two steps:
+##The program installation requires two steps:
 ### 1. Alphafold3 installation.
 ### 2. Configure Alphafold3 to Stoichiometry Prediction program.
 
