@@ -30,7 +30,7 @@ Using this system, MULTICOM4 achieved remarkable success, ranking 1st in protein
 ### Example : H0208 Runtimes
 Sequence Lengths :- A : 328, B : 318 <br />
 Number of models generated per stoichiometry :- 25 <br />
-Device Configuration :- CPU : AMD EPYC 7643 2.3 Ghz, RAM : 512 GB, GPU : One Nvidia A100 <br />
+Device Configuration :- CPU : AMD EPYC 7643 2.3 Ghz, RAM : 512 GB, GPU : One Nvidia A100 (80 GB) <br />
 
 | **Stoichiometry** | **Total Sequence Length** | **Runtime** |
 | ------------------ | ------------------------- | -------------------------- |
