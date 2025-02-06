@@ -26,7 +26,26 @@ Using this system, MULTICOM4 achieved remarkable success, ranking 1st in protein
 ## Time Estimates
 
 - **Installation Time**: Approximately **45 minutes** to download and set up databases (without SSD).  
-- **Average Runtime**: Varies by target length, intended stoichiometries, and GPU memory. Inputs with up to **5,120 tokens** fit on an NVIDIA A100 or H100 (80 GB).  
+- **Average Runtime**: Varies by target length, intended stoichiometries, and GPU memory. Inputs with up to **5,120 tokens** fit on an NVIDIA A100 or H100 (80 GB).
+### Example : H0208 Runtimes
+Sequence Length:- A : 328, B : 318 
+**Target T0270o**
+| **Stoichiometry** | **Total Sequence Length** | **Runtime** |
+| ------------------ | ------------------------- | -------------------------- |
+| A1B1            | 646        | 35 min       | 
+| A1B2            | 964        | 10 min       | 
+| A1B3            | 1282        | 22 min       | 
+| A2B1            | 974        | 11 min       |
+| A2B2            | 1292        | 21 min       |
+| A2B3            | 1610        | 40 min       | 
+| A3B1            | 1302        | 30 min       |
+| A3B2            | 1620        | 57 min       |
+| A3B3            | 1938        | 40 min       | 
+
+Total Runtime: 266 minutes (4 hours 26 minutes)
+
+Note : In order to save time and computational resource, the output of data pipeline(Genetic database search for MSA and Template) of the basic stoichiometry (for example: A2 for Homomultimer and A1B1, A1B1C1, A1B1C1D1, etc for Heteromultimer) is used directly for the other stoichiometries. This eliminates having to run the data pipeline for all of the stoichiometries separately which reduces the Runtime significantly. 
+
 
 
 The program installation requires two steps

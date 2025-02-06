@@ -12,50 +12,49 @@ from utils import makedir_if_not_exists,is_dir,is_file
 from protein_utils import read_fasta,create_default_stoichiometry,process_stoichiometry,validate_sequence_and_stoichiometry,read_common_data,generate_json
 
 
-def run_docker( af3_program_path,af3_params_path, af3_db_path,target_name,target_output_path):
-
+def run_docker(af3_program_path, af3_params_path, af3_db_path, target_name, target_output_path):
     original_cwd = os.getcwd()
-
     try:
         os.chdir(af3_program_path)
         docker_command = [
-        "docker", "run", "--rm",
-        "--volume", f"{target_output_path}:/root/af_output",
-        "--volume", f"{af3_params_path}:/root/models",
-        "--volume", f"{af3_db_path}:/root/public_databases",
-        "--gpus", "all",
-        "alphafold3",
-        "python", "run_alphafold.py",
-        f"--json_path=/root/af_output/input_jsons/{target_name}.json",
-        "--model_dir=/root/models",
-        "--output_dir=/root/af_output"
-    ]
-        print("Running Docker Command : ", " ".join(docker_command))
-
+            "docker", "run", "--rm",
+            "--volume", f"{target_output_path}:/root/af_output",
+            "--volume", f"{af3_params_path}:/root/models",
+            "--volume", f"{af3_db_path}:/root/public_databases",
+            "--gpus", "all",
+            "alphafold3",
+            "python", "run_alphafold.py",
+            f"--json_path=/root/af_output/input_jsons/{target_name}.json",
+            "--model_dir=/root/models",
+            "--output_dir=/root/af_output"
+        ]
+        print("Running Docker Command: ", " ".join(docker_command))
+        
         try:
             process = subprocess.Popen(
                 docker_command,
                 stdout=subprocess.PIPE,
-                stderr=subprocess.PIPE,
-                universal_newlines=True
+                stderr=subprocess.STDOUT,
+                universal_newlines=True,
+                bufsize=1 
             )
-
-            for stdout_line in iter(process.stdout.readline, ""):
-                print(stdout_line, end="")
-            for stderr_line in iter(process.stderr.readline, ""):
-                print(stderr_line, end="")
-
-            process.stdout.close()
-            process.stderr.close()
-            return_code = process.wait()
-
+            
+            while True:
+                output = process.stdout.readline()
+                if output == '' and process.poll() is not None:
+                    break
+                if output:
+                    print(output.strip())
+            
+            return_code = process.poll()
             if return_code != 0:
                 print(f"Docker command failed with return code {return_code}")
             else:
                 print("Docker command completed successfully.")
-
+                
         except Exception as e:
             print(f"Error occurred: {str(e)}")
+            
     finally:
         os.chdir(original_cwd)
 
