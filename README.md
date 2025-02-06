@@ -207,11 +207,14 @@ Stoichiometry with the highest Average ranking score: A1B1
 | A3B3         | 0.4140460397693776        | 0.37972803742981975        | <img src="images/H0208/A3B3.gif" alt="A3B3" width="320px" height="185px" /> |
 
 
-## CASP16 Phase 0 Models Availability
+## CASP16 Phase 0 Structural Models Availability
 
-The models used to determine the stoichiometry for Phase 0 targets in CASP16 can be found at:
+The AlphaFold3 structural models used to determine the stoichiometry for Phase 0 targets in CASP16 can be found at:
 https://zenodo.org/records/14807606
 
+## Reproduction Instruction
+
+Most parts of the PreStoi method used in the blind CASP16 experiment can be automated and have been implemented in this GitHub repository. The automated results can be reproduced according to the following steps: (1) download the CASP16 Phase 0 protein complex dataset from this repository; (2) run PreStoi to propose stoichiometry candiates, generate AlphaFold3 strucutral models for them, and rank and select stoichiometries; (3) compare the stoichiometry prediction with the resutls in Table 1 in the manuscript describing PreStoi (https://www.biorxiv.org/content/10.1101/2025.01.12.632663v3). You may also compare the AlphaFold3 structural models and their ranking scores that you obtain with the ones generated in the CASP16 experiment that are available at https://zenodo.org/records/14807606. 
 
 ## Citing This Work
 
