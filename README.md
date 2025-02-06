@@ -33,7 +33,7 @@ Number of models generated per stoichiometry :- 25 <br />
 Device Configuration :- CPU : AMD EPYC 7643 2.3 Ghz, RAM : 512 GB, GPU : One Nvidia A100 (80 GB) <br />
 The average runtime of testing all 9 stochichiometry candidates (A1B1, A1B2, A1B3, A2B1, A2B2, A2B3, A3B1, A3B2, A3B3) is 266 minutes. 
 
-##The program installation requires two steps:
+## The PreStoi installation requires two steps:
 ### 1. Alphafold3 installation.
 ### 2. Configure Alphafold3 to Stoichiometry Prediction program.
 
