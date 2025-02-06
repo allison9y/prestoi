@@ -28,7 +28,9 @@ Using this system, MULTICOM4 achieved remarkable success, ranking 1st in protein
 - **Installation Time**: Approximately **45 minutes** to download and set up databases (without SSD).  
 - **Average Runtime**: Varies by target length, intended stoichiometries, and GPU memory. Inputs with up to **5,120 tokens** fit on an NVIDIA A100 or H100 (80 GB).
 ### Example : H0208 Runtimes
-Sequence Length:- A : 328, B : 318 
+Sequence Length :- A : 328, B : 318
+Number of models per stoichiometry :- 25
+Device Configuration :- CPU : AMD EPYC 7643 2.3 Ghz, RAM : 512 GB, GPU : One Nvidia A100 
 
 | **Stoichiometry** | **Total Sequence Length** | **Runtime** |
 | ------------------ | ------------------------- | -------------------------- |
@@ -48,7 +50,7 @@ Note : In order to save time and computational resource, the output of data pipe
 
 
 
-The program installation requires two steps
+The program installation requires two steps:
 ### 1. Alphafold3 installation.
 ### 2. Configure Alphafold3 to Stoichiometry Prediction program.
 
