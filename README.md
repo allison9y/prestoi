@@ -1,7 +1,7 @@
 # PreStoi
 ## Predicting stoichiometry of protein complexes by integrating AlphaFold3 and templates.
 
-This system was built and tested to predict the correct stoichiometry for targets released without stochiometry information (Phase 0) in the 16th world-wide Critical Assessment of Techniques for Protein Structure Prediction (CASP16) concluded in December 2024.
+This system was built and tested to predict the correct stoichiometry for targets released without stochiometry information (Phase 0) in the 16th worldwide Critical Assessment of Techniques for Protein Structure Prediction (CASP16) concluded in December 2024.
 
 Using this system, MULTICOM4 achieved remarkable success, ranking 1st in protein complex structure prediction for such targets. 
 
@@ -23,7 +23,7 @@ Using this system, MULTICOM4 achieved remarkable success, ranking 1st in protein
   - Supports inputs up to **5,120 tokens** on a single A100 or H100 (80 GB)  
 - **RAM**: Minimum **64 GB** (especially for long targets) 
 
-## Installation Time and Rutime Estimation
+## Installation Time and Runtime Estimation
 
 - **Installation Time**: Approximately **45 minutes** to download and set up databases (without SSD).  
 - **Average Runtime**: Varies by target length, intended stoichiometries, and GPU memory. Inputs with up to **5,120 tokens** fit on an NVIDIA A100 or H100 (80 GB).
@@ -31,7 +31,7 @@ Example : Rutime of CASP16 target H0208
 Sequence Lengths : Chain A : 328, Chain B : 318 <br />
 Number of models generated per stoichiometry :- 25 <br />
 Device Configuration for running PreStoi and AlphaFold3:- CPU : AMD EPYC 7643 2.3 Ghz, RAM : 512 GB, GPU : One Nvidia A100 (80 GB) <br />
-The average runtime of testing all 9 stochichiometry candidates (A1B1, A1B2, A1B3, A2B1, A2B2, A2B3, A3B1, A3B2, A3B3) is 266 minutes. 
+The average runtime of testing all 9 stoichiometry candidates (A1B1, A1B2, A1B3, A2B1, A2B2, A2B3, A3B1, A3B2, A3B3) is 266 minutes. 
 
 ## The PreStoi installation requires four steps:
 ### 1. Download PreStoi package
@@ -41,7 +41,7 @@ cd prestoi
 ```
 
 ### 2. Install conda envoirment
-You can create a virtual enviroment by yourself or install a fresh conda envoriment using the following commands:
+You can create a virtual environment by yourself or install a fresh conda environment using the following commands:
 ```
 wget "https://github.com/conda-forge/miniforge/releases/download/23.1.0-3/Mambaforge-$(uname)-$(uname -m).sh"
 bash Mambaforge-$(uname)-$(uname -m).sh 
@@ -119,7 +119,7 @@ This step will create a config.json file in the current working directory(presto
 }
 ```
 
-Note: This step is only required to be run once. However, this can be run again in case the given three paths change. Make sure the paths are valid.
+Note: This step only requires running once. However, this can be run again if the three paths given change. Make sure the paths are valid.
 
 # Inference
 ## Run the template-based stoichiometry prediction
@@ -131,7 +131,7 @@ The script requires 2 arguments:
   1. input_fasta : file path to the target fasta file
   2. output_path : desired output path for the results
 
-This script will generate the possible number of copies for each subunit in the input FASTA file, generates stoichiometry candidates for AlphaFold3-based prediction, and provides template-based stoichiometry predictions when sufficient template evidence is available (e.g., a complex template that covers all subunits in the input FASTA)
+This script will generate the possible number of copies for each subunit in the input FASTA file, generate stoichiometry candidates for AlphaFold3-based prediction, and provide template-based stoichiometry predictions when sufficient template evidence is available (e.g., a complex template that covers all subunits in the input FASTA)
 
 Example output for H0208 (True stoichiometry: A1B1):
 ```
@@ -239,11 +239,11 @@ https://zenodo.org/records/14807606
 
 ## Reproduction Instruction
 
-Most parts of the PreStoi method used in the blind CASP16 experiment can be automated and have been implemented in this GitHub repository. The automated results can be reproduced according to the following steps: (1) download the CASP16 Phase 0 protein complex dataset from this repository; (2) run PreStoi to propose stoichiometry candiates, generate AlphaFold3 strucutral models for them, and rank and select stoichiometries; (3) compare the stoichiometry prediction with the resutls in Table 1 in the manuscript describing PreStoi (https://www.biorxiv.org/content/10.1101/2025.01.12.632663v3). You may also compare the AlphaFold3 structural models and their ranking scores that you obtain with the ones generated in the CASP16 experiment that are available at https://zenodo.org/records/14807606. 
+Most parts of the PreStoi method used in the blind CASP16 experiment can be automated and have been implemented in this GitHub repository. The automated results can be reproduced according to the following steps: (1) download the CASP16 Phase 0 protein complex dataset from this repository; (2) run PreStoi to propose stoichiometry candidates (template_based_prediction.py), generate AlphaFold3 structural models for them, and rank and select stoichiometries (alphafold3_stoichiometry_prediction.py);  (3) compare the stoichiometry prediction with the results in Table 1 in the manuscript describing PreStoi (https://www.biorxiv.org/content/10.1101/2025.01.12.632663v3). You may also compare the AlphaFold3 structural models and their ranking scores that you obtain with the ones generated in the CASP16 experiment that are available at https://zenodo.org/records/14807606. 
 
 ## Citing This Work
 
-If you find this work is useful, please cite: 
+If you find this work useful, please cite: 
 
 Liu, J., Neupane, P., & Cheng, J. (2025). Accurate Prediction of Protein Complex Stoichiometry by Integrating AlphaFold3 and Template Information. bioRxiv, 2025-01 (https://www.biorxiv.org/content/10.1101/2025.01.12.632663v3)
 
