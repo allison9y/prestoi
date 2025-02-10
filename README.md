@@ -54,12 +54,12 @@ mamba install -y -c bioconda hmmer
 pip install pandas
 ```
 
-### 2. Download databases and tools to make template-based predictions
+### 3. Download databases and tools to make template-based predictions
 ```
 python download_template_database_and_tools.py
 ```
 
-## 3. AlphaFold3 installation. (Skip to step 4 if AlphaFold3 has already been installed)
+## 4. AlphaFold3 installation. (Skip to step 5 if AlphaFold3 has already been installed)
 ### Begin with the installation of AlphaFold3 program using the following. 
 https://github.com/google-deepmind/alphafold3/blob/main/docs/installation.md
 
@@ -100,7 +100,7 @@ docker run -it \
     --output_dir=/root/af_output
 ```
 
-## 4. Configure databases and tools for Stoichiometry Prediction
+## 5. Configure databases and tools for Stoichiometry Prediction
 
 ### Run the configure.py to create a config.json file 
 ```
