@@ -203,7 +203,7 @@ def infer_stoichiometry_from_chains(chain_sequences, identity_threshold=0.9):
 
     return stoichiometry_str, cluster_representatives
 
-def match_chains_to_stoichiometry(input_sequence, pdb_file):
+def match_chains_to_stoichiometry(input_sequence, template_name, pdb_file):
     """
     Groups chain IDs into components based on sequence identity, infers stoichiometry,
     and finds the best matching component for the input sequence.
@@ -224,6 +224,21 @@ def match_chains_to_stoichiometry(input_sequence, pdb_file):
     # Extract chain sequences from PDB
     chain_sequences = extract_chain_sequences(pdb_file)
 
+    global_stoichiometry = get_pdb_stoichiometry([template_name]).get(template_name)[0]
+    if global_stoichiometry and re.match(r"^A\d+$", global_stoichiometry):
+        # If stoichiometry indicates a homo-multimer (e.g., A2, A4, etc.)
+        parsed_stoichiometry = parse_stoichiometry(global_stoichiometry)
+        num_of_copies = parsed_stoichiometry.get("A", 0)  # Get the number of copies for 'A'
+        # print(f"{template_name}: Homo-multimer detected with stoichiometry {global_stoichiometry}. "
+        #         f"Using {num_of_copies} as the number of copies.")
+        return {
+            "inferred_stoichiometry": global_stoichiometry,
+            "component_to_chains": {"A": list(chain_sequences.keys())},
+            "best_component": "A",
+            "best_identity": 1.0,  # Assume identity is perfect for homo-multimers
+            "num_of_copies": num_of_copies
+        }
+        
     # Infer stoichiometry and clustering from chain IDs
     inferred_stoichiometry, cluster_map = infer_stoichiometry_from_chains(chain_sequences)
 
@@ -285,7 +300,7 @@ def determine_subunit_copies(subunit_templates, pdb_folder):
                     continue
 
             # Directly match subunit sequence to stoichiometry from the PDB's chain sequences
-            match_dict = match_chains_to_stoichiometry(template.hit_sequence.replace('-', ''), pdb_file)
+            match_dict = match_chains_to_stoichiometry(template.hit_sequence.replace('-', ''), template_name, pdb_file)
 
             copies = match_dict['num_of_copies']
             print(f"{template_name}: stoichiometry: {match_dict['inferred_stoichiometry']}, "
@@ -523,6 +538,44 @@ def finalize_confident_stoichiometry(subunit_templates, possible_copies, pdb_fol
 
     return ""
 
+def process_unique_sequences(sequences, output_path, uniref90_db, hhmake_binary, hhsearch_binary, hhdb_prefix):
+    """Process unique sequences for homomultimer optimization."""
+    sequence_map = {}
+    unique_sequences = {}
+    subunit_templates = {}
+
+    for subunit, sequence in sequences.items():
+        if sequence in unique_sequences:
+            sequence_map[subunit] = unique_sequences[sequence]
+        else:
+            sequence_map[subunit] = subunit
+            unique_sequences[sequence] = subunit
+
+            # Generate files and process sequence
+            fasta_path = os.path.join(output_path, f"{subunit}.fasta")
+            with open(fasta_path, "w") as f:
+                f.write(f">{subunit}\n{sequence}\n")
+
+            msa_file = run_jackhmmer(fasta_path, os.path.join(output_path, subunit), uniref90_db)
+            a3m_file = os.path.join(output_path, f"{subunit}.a3m")
+            with open(a3m_file, "w") as f:
+                msa_content = open(msa_file).read()
+                msa_content = deduplicate_stockholm_msa(msa_content)
+                msa_content = remove_empty_columns_from_stockholm_msa(msa_content)
+                msa_content = convert_stockholm_to_a3m(msa_content)
+                f.write(msa_content)
+
+            hmm_file = os.path.join(output_path, f"{subunit}.hmm")
+            run_hhmake(hhmake_binary, a3m_file, hmm_file)
+
+            hhr_file = os.path.join(output_path, f"{subunit}.hhr")
+            hhsearch_result = run_hhsearch(hhsearch_binary, hmm_file, hhr_file, hhdb_prefix)
+            parsed_templates = parse_hhr(hhsearch_result)
+
+            subunit_templates[subunit] = sorted(parsed_templates, key=lambda x: x.sum_probs, reverse=True)[:10]
+
+    return subunit_templates, sequence_map
+
 if __name__ == "__main__":
 
     parser = argparse.ArgumentParser()
@@ -550,52 +603,18 @@ if __name__ == "__main__":
 
     sequences = parse_fasta(args.input_fasta)
 
-    subunit_sequences = {}
-    subunit_templates = {}
+    sequences = parse_fasta(args.input_fasta)
+    subunit_sequences = {record.id: str(record.seq) for record in sequences}
 
-    for i, record in enumerate(sequences):
-        seq_id = record.id
-        subunit_sequences[seq_id] = seq_str = str(record.seq)
-        subunit_fasta = os.path.join(args.output_path, f"{seq_id}.fasta")
-
-        # Save individual sequence as a separate FASTA file
-        with open(subunit_fasta, "w") as f:
-            SeqIO.write(record, f, "fasta")
-
-        # Run Jackhmmer
-        msa_file = run_jackhmmer(subunit_fasta, os.path.join(args.output_path, seq_id), uniref90_database)
-
-        with open(msa_file) as f:
-            msa_for_templates = f.read()
-
-        msa_for_templates = deduplicate_stockholm_msa(msa_for_templates)
-        msa_for_templates = remove_empty_columns_from_stockholm_msa(msa_for_templates)
-        msa_for_templates = convert_stockholm_to_a3m(msa_for_templates)
-
-        a3m_file = os.path.join(args.output_path, seq_id + '.a3m')
-        with open(a3m_file, 'w') as fw:
-            fw.write(msa_for_templates)
-
-        # Run HHmake
-        hmm_file = os.path.join(args.output_path, seq_id + '.hmm')
-        run_hhmake(hhmake_binary, a3m_file, hmm_file)
-
-        # Run HHsearch
-        hhr_file = os.path.join(args.output_path, f"{seq_id}.hhr")
-        pdb_templates_result = run_hhsearch(hhsearch_binary, hmm_file, hhr_file, hhdb_prefix)
-
-        pdb_template_hits = parse_hhr(hhr_string=pdb_templates_result)
-
-        pdb_template_hits = sorted(pdb_template_hits, key=lambda x: x.sum_probs, reverse=True)
-
-        print(f"Finished processing subunit: {seq_id}")
-
-        # print(pdb_template_hits)
-
-        # subunit_template_hits += [pdb_templ
-        # ate_hits]
-        subunit_templates[seq_id] = pdb_template_hits[:10]  # Top 10 templates
-
+    subunit_templates, sequence_map = process_unique_sequences(
+        subunit_sequences,
+        args.output_path,
+        uniref90_database,
+        hhmake_binary,
+        hhsearch_binary,
+        hhdb_prefix
+    )
+    
     # Determine possible subunit copies based on templates
     pdb_folder = os.path.join(args.output_path, 'templates')
     os.makedirs(pdb_folder, exist_ok=True)
