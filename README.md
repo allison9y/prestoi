@@ -59,7 +59,7 @@ pip install pandas
 python download_template_database_and_tools.py
 ```
 
-## 4. AlphaFold3 installation. (Skip to step 5 if AlphaFold3 has already been installed)
+### 4. AlphaFold3 installation. (Skip to step 5 if AlphaFold3 has already been installed)
 ### Begin with the installation of AlphaFold3 program using the following. 
 https://github.com/google-deepmind/alphafold3/blob/main/docs/installation.md
 
@@ -100,9 +100,9 @@ docker run -it \
     --output_dir=/root/af_output
 ```
 
-## 5. Configure databases and tools for Stoichiometry Prediction
+### 5. Configure databases and tools for Stoichiometry Prediction
 
-### Run the configure.py to create a config.json file 
+#### Run the configure.py to create a config.json file 
 ```
 python configure.py --af3_program_path /path/to/alphafold3_program/ --af3_params_path /path/to/alphafold3_parameters/ --af3_db_path /path/to/alphafold3_databases/ --hhdb_prefix databases/pdb_sort90/hhsuitedb3 --hhmake_binary tools/hhsuite-3.2.0/bin/hhmake --hhsearch_binary tools/hhsuite-3.2.0/bin/hhsearch
 
