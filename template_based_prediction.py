@@ -267,7 +267,7 @@ def match_chains_to_stoichiometry(input_sequence, template_name, pdb_file):
         "num_of_copies": len(component_to_chains[best_component]) if best_component else 0,
     }
 
-def determine_subunit_copies(subunit_templates, pdb_folder):
+def determine_subunit_copies(subunit_templates, pdb_folder, is_homomer):
     """
     Determines the possible number of copies for each subunit based on sequence-template matches.
 
@@ -303,6 +303,11 @@ def determine_subunit_copies(subunit_templates, pdb_folder):
             match_dict = match_chains_to_stoichiometry(template.hit_sequence.replace('-', ''), template_name, pdb_file)
 
             copies = match_dict['num_of_copies']
+
+            if is_homomer and copies == 1:
+                print(f"{template_name}: Homo-multimer detected with global stoichiometry {match_dict['inferred_stoichiometry']}, skipping single copy.")
+                continue
+
             print(f"{template_name}: stoichiometry: {match_dict['inferred_stoichiometry']}, "
                   f"possible number of copies for {subunit}: {copies}")
 
@@ -603,9 +608,9 @@ if __name__ == "__main__":
 
     sequences = parse_fasta(args.input_fasta)
 
-    sequences = parse_fasta(args.input_fasta)
     subunit_sequences = {record.id: str(record.seq) for record in sequences}
 
+    is_homomer = len(set([record.seq for record in sequences])) == 1
     subunit_templates, sequence_map = process_unique_sequences(
         subunit_sequences,
         args.output_path,
@@ -618,28 +623,31 @@ if __name__ == "__main__":
     # Determine possible subunit copies based on templates
     pdb_folder = os.path.join(args.output_path, 'templates')
     os.makedirs(pdb_folder, exist_ok=True)
-    possible_copies = determine_subunit_copies(subunit_templates, pdb_folder)
+    possible_copies = determine_subunit_copies(subunit_templates, pdb_folder, is_homomer)
 
     # Print possible copy numbers for each subunit
     # print(possible_copies)
     for subunit, copies in possible_copies.items():
-        unique_copies = set(copies)
+        unique_copies = set(copies)    
         print(f"Subunit {subunit}: Possible Copies - {sorted(unique_copies)}")
     
     combos = generate_combinations(possible_copies)
     print("Stoichiometry candidates:", combos)
     
-    # Final step: Single-template logic vs. fallback
-    final_stoichiometry = finalize_confident_stoichiometry(
-        subunit_templates=subunit_templates,
-        possible_copies=possible_copies,
-        pdb_folder=pdb_folder,
-        subunit_sequences=subunit_sequences
-    )
-    if len(final_stoichiometry) > 0:
-        print("Template-based stoichiometry prediction:", final_stoichiometry)
-    else:
+    if is_homomer:
         print("No sufficient evidence to make template-based stoichiometry prediction")
+    else:
+        # Final step: Single-template logic vs. fallback
+        final_stoichiometry = finalize_confident_stoichiometry(
+            subunit_templates=subunit_templates,
+            possible_copies=possible_copies,
+            pdb_folder=pdb_folder,
+            subunit_sequences=subunit_sequences
+        )
+        if len(final_stoichiometry) > 0:
+            print("Template-based stoichiometry prediction:", final_stoichiometry)
+        else:
+            print("No sufficient evidence to make template-based stoichiometry prediction")
     
 
 
