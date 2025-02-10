@@ -143,7 +143,7 @@ The chain number in 8d2z is less than the number of input subunits
 Template-based stoichiometry prediction: A1B1
 ```
 
-## Run the alpahfold3-based stoichiometry prediction
+## Run the alphafold3-based stoichiometry prediction
 ```
 python alphafold3_stoichiometry_prediction.py
 ```
