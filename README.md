@@ -33,12 +33,33 @@ Number of models generated per stoichiometry :- 25 <br />
 Device Configuration for running PreStoi and AlphaFold3:- CPU : AMD EPYC 7643 2.3 Ghz, RAM : 512 GB, GPU : One Nvidia A100 (80 GB) <br />
 The average runtime of testing all 9 stochichiometry candidates (A1B1, A1B2, A1B3, A2B1, A2B2, A2B3, A3B1, A3B2, A3B3) is 266 minutes. 
 
-## The PreStoi installation requires two steps:
-### 1. Alphafold3 installation.
-### 2. Install PreStoi and Configure Alphafold3 for Stoichiometry Prediction.
+## The PreStoi installation requires four steps:
+### 1. Download PreStoi package
+```
+git clone https://github.com/jianlin-cheng/prestoi
+cd prestoi
+```
 
+### 2. Install conda envoirment
+You can create a virtual enviroment by yourself or install a fresh conda envoriment using the following commands:
+```
+wget "https://github.com/conda-forge/miniforge/releases/download/23.1.0-3/Mambaforge-$(uname)-$(uname -m).sh"
+bash Mambaforge-$(uname)-$(uname -m).sh 
+rm Mambaforge-$(uname)-$(uname -m).sh
+source ~/.bashrc  
+```
+Then run the following commands to install the required python packages:
+```
+mamba install -y -c bioconda hmmer
+pip install pandas
+```
 
-## 1. AlphaFold3 installation. (Skip to step 2 if AlphaFold3 has already been installed)
+### 2. Download databases and tools to make template-based predictions
+```
+python download_template_database_and_tools.py
+```
+
+## 3. AlphaFold3 installation. (Skip to step 4 if AlphaFold3 has already been installed)
 ### Begin with the installation of AlphaFold3 program using the following. 
 https://github.com/google-deepmind/alphafold3/blob/main/docs/installation.md
 
@@ -79,28 +100,22 @@ docker run -it \
     --output_dir=/root/af_output
 ```
 
-## 2. Install PreStoi and Configure AlphaFold3 for Stoichiometry Prediction
+## 4. Configure databases and tools for Stoichiometry Prediction
 
-Clone the repository
+### Run the configure.py to create a config.json file 
 ```
-git clone https://github.com/jianlin-cheng/prestoi
-cd prestoi
-```
-Install pandas library
-```
-pip install pandas
-```
+python configure.py --af3_program_path /path/to/alphafold3_program/ --af3_params_path /path/to/alphafold3_parameters/ --af3_db_path /path/to/alphafold3_databases/ --hhdb_prefix databases/pdb_sort90/hhsuitedb3 --hhmake_binary tools/hhsuite-3.2.0/bin/hhmake --hhsearch_binary tools/hhsuite-3.2.0/bin/hhsearch
 
-### Run the configure_af3.py to create a config.json file 
-```
-python configure_af3.py --af3_program_path /path/to/alphafold3_program/ --af3_params_path /path/to/alphafold3_parameters/ --af3_db_path /path/to/alphafold3_databases/
 ```
 This step will create a config.json file in the current working directory(prestoi) with the following information.
 ```json
 {
   "af3_program_path": "/path/to/alphafold3_program/",
   "af3_params_path": "/path/to/alphafold3_parameters/",
-  "af3_db_path": "/path/to/alphafold3_databases/"
+  "af3_db_path": "/path/to/alphafold3_databases/",
+  "hhsearch_binary": "/path/to/hhsearch",
+  "hhmake_binary": "/path/to/hhmake",
+  "hhdb_prefix": "/path/to/hhdb",
 }
 ```
 
