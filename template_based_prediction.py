@@ -330,35 +330,24 @@ def get_single_template_for_all_subunits(subunit_templates):
     common = set.intersection(*all_sets)
     return next(iter(common)) if common else None
 
-def partition_copies(num_copies, n_subunits):
+def partition_copies(total_copies, num_subunits):
     """
-    Generate all ways to distribute 'num_copies' identical items among 'n_subunits' subunits (each >=1).
-    E.g. partition_copies(4,2) -> [[1,3],[2,2],[3,1]]
-    """
-    if n_subunits == 1:
-        return [[num_copies]]
-    results = []
-    for i in range(1, num_copies):
-        for rest in partition_copies(num_copies - i, n_subunits - 1):
-            results.append([i] + rest)
-    return results
+    Evenly distributes total copies among the given number of subunits.
 
-def score_distribution(subunits, distribution, chain_seq_list, subunit_sequences):
+    Args:
+        total_copies (int): Total number of copies to distribute.
+        num_subunits (int): Number of subunits.
+
+    Returns:
+        list: A list where each element represents the number of copies assigned to a subunit.
     """
-    Scores how well a distribution fits subunits' sequences.
-    For each subunit, find best identity among chain_seq_list; multiply by how many copies.
-    Returns sum of all subunits' identities.
-    """
-    total_score = 0.0
-    for i, sub_name in enumerate(subunits):
-        best_id = 0.0
-        sub_seq = subunit_sequences[sub_name]
-        for cseq in chain_seq_list:
-            ident = compute_sequence_identity(sub_seq, cseq)
-            if ident > best_id:
-                best_id = ident
-        total_score += best_id * distribution[i]
-    return total_score
+    base_count = total_copies // num_subunits  # Minimum copies each subunit gets
+    remainder = total_copies % num_subunits  # Extra copies to distribute
+
+    # Distribute the extra copies among the first 'remainder' subunits
+    distribution = [base_count + 1] * remainder + [base_count] * (num_subunits - remainder)
+
+    return distribution
 
 ########################################
 # SINGLE TEMPLATE COVERAGE ACROSS ALL SUBUNITS
@@ -472,7 +461,6 @@ def handle_single_template_stoich(
     # 4) For each cluster label => we have a total # of copies (parsed_stoich[label])
     #    If multiple subunits map to that label, we partition. If 1 subunit => it gets them all.
     final_assignments = {}
-    total_score = 0.0
 
     for label, total_copies in parsed_stoich.items():
         # subunits that matched label
@@ -489,25 +477,12 @@ def handle_single_template_stoich(
         else:
             # partition among multiple subunits
             # e.g. if total_copies=4 and matched_subs=2 => possible combos [1,3],[2,2],[3,1]
-            combos = partition_copies(total_copies, len(matched_subs))
-
-            # Score each distribution, pick best
-            best_combo = None
-            best_combo_score = -1.0
-
-            # Build a chain_seq_list for scoring
-            chain_seq_list = [chain_seqs[cid] for cid in cluster_map[label]]  # actual chain sequences in that label
-            for dist in combos:
-                sc = score_distribution(matched_subs, dist, chain_seq_list, subunit_sequences)
-                if sc > best_combo_score:
-                    best_combo_score = sc
-                    best_combo = dist
+            distribution = partition_copies(total_copies, len(matched_subs))
 
             # Save the best distribution
             final_assignments[label] = {}
             for i, subn in enumerate(matched_subs):
-                final_assignments[label][subn] = best_combo[i]
-            total_score += best_combo_score
+                final_assignments[label][subn] = distribution[i]
 
     # 5) Build a final distribution string
     #    e.g. "H0208_A:2,H0208_B:2"
@@ -518,7 +493,7 @@ def handle_single_template_stoich(
     final_str = "".join(sorted(stoich_parts))
 
     print(f"[handle_single_template_stoich] Template={template_code}, "
-          f"cluster_stoich={inferred_stoich_str}, final_distribution={final_str}, score={total_score:.2f}")
+          f"cluster_stoich={inferred_stoich_str}, final_distribution={final_str}")
     return final_str
 
 ########################################
@@ -531,19 +506,20 @@ def finalize_confident_stoichiometry(subunit_templates, possible_copies, pdb_fol
     2) If no single template found, fallback to mode-based approach.
     """
     single_templates = get_single_template_for_all_subunits(subunit_templates)
-    for single_template in single_templates:
-        # Attempt to interpret the single template stoichiometry for all subunits
-        # subunit_list = sorted(subunit_templates.keys()) # e.g. ["H0208_A","H0208_B"]
-        subunit_list = list(subunit_templates.keys())
-        final_str = handle_single_template_stoich(
-            template_code=single_template,
-            subunit_list=subunit_list,
-            subunit_sequences=subunit_sequences,  # We assume you have subunit->seq
-            pdb_folder=pdb_folder,
-            identity_threshold=0.3
-        )
-        if final_str is not None and len(final_str) > 0:
-            return final_str
+    if single_templates is not None:
+        for single_template in single_templates:
+            # Attempt to interpret the single template stoichiometry for all subunits
+            # subunit_list = sorted(subunit_templates.keys()) # e.g. ["H0208_A","H0208_B"]
+            subunit_list = list(subunit_templates.keys())
+            final_str = handle_single_template_stoich(
+                template_code=single_template,
+                subunit_list=subunit_list,
+                subunit_sequences=subunit_sequences,  # We assume you have subunit->seq
+                pdb_folder=pdb_folder,
+                identity_threshold=0.3
+            )
+            if final_str is not None and len(final_str) > 0:
+                return final_str
 
     return ""
 
@@ -573,10 +549,6 @@ if __name__ == "__main__":
         exit()
 
     sequences = parse_fasta(args.input_fasta)
-
-    if len(sequences) < 2:
-        print("Error: Input FASTA must contain more than two sequences.")
-        exit()
 
     subunit_sequences = {}
     subunit_templates = {}
@@ -637,7 +609,7 @@ if __name__ == "__main__":
     
     combos = generate_combinations(possible_copies)
     print("Stoichiometry candidates:", combos)
-
+    
     # Final step: Single-template logic vs. fallback
     final_stoichiometry = finalize_confident_stoichiometry(
         subunit_templates=subunit_templates,

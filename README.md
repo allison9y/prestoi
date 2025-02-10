@@ -122,7 +122,32 @@ This step will create a config.json file in the current working directory(presto
 Note: This step is only required to be run once. However, this can be run again in case the given three paths change. Make sure the paths are valid.
 
 # Inference
-## Run the stoichiometry_prediction.py
+## Run the template-based stoichiometry prediction
+```
+python template_based_prediction.py
+```
+
+The script requires 2 arguments:
+  1. input_fasta : file path to the target fasta file
+  2. output_path : desired output path for the results
+
+This script will generate the possible number of copies for each subunit in the input FASTA file, generates stoichiometry candidates for AlphaFold3-based prediction, and provides template-based stoichiometry predictions when sufficient template evidence is available (e.g., a complex template that covers all subunits in the input FASTA)
+
+Example output for H0208 (True stoichiometry: A1B1):
+```
+Subunit H0208_A: Possible Copies - [1, 2]
+Subunit H0208_B: Possible Copies - [1, 2]
+Stoichiometry candidates: ['A1B1', 'A1B2', 'A2B1', 'A2B2']
+The chain number in 8d2z is less than the number of input subunits
+[handle_single_template_stoich] Template=2yhe, cluster_stoich=A2, final_distribution=A1B1
+Template-based stoichiometry prediction: A1B1
+```
+
+## Run the alpahfold3-based stoichiometry prediction
+```
+python alphafold3_stoichiometry_prediction.py
+```
+
 The script requires 4 arguments:
   1. input_fasta : file path to the target fasta file
   2. stoichiometries : comma separated valid stoichiometries intended to be tested
