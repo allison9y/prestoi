@@ -163,7 +163,7 @@ This script will run all the required steps and print the results upon completio
 
 ### Homomultimer Example
 ```
-python stoichiometry_prediction.py --input_fasta /path/to/T0270o.fasta --stoichiometries A2,A3,A4,A5,A6 --output_path /path/to/output_dir  --num_models 25
+python alphafold3_stoichiometry_prediction.py --input_fasta /path/to/T0270o.fasta --stoichiometries A2,A3,A4,A5,A6 --output_path /path/to/output_dir  --num_models 25
 ```
 
 Example output for T0270o (True stoichiometry: A3):
@@ -195,7 +195,7 @@ Stoichiometry with the highest Average ranking score: A3
 
 ### Heteromultimer Example
 ```
-python stoichiometry_prediction.py --input_fasta /path/to/H0208.fasta --stoichiometries A1B1,A1B2,A1B3,A2B1,A2B2,A2B3,A3B1,A3B2,A3B3 --output_path /path/to/output_dir  --num_models 25
+python alphafold3_stoichiometry_prediction.py --input_fasta /path/to/H0208.fasta --stoichiometries A1B1,A1B2,A1B3,A2B1,A2B2,A2B3,A3B1,A3B2,A3B3 --output_path /path/to/output_dir  --num_models 25
 ```
 
 Example output for H0208 (True stoichiometry: A1B1):
