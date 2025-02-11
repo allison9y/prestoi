@@ -106,7 +106,6 @@ docker run -it \
 #### Run the configure.py to create a config.json file 
 ```
 python configure.py --af3_program_path /path/to/alphafold3_program/ --af3_params_path /path/to/alphafold3_parameters/ --af3_db_path /path/to/alphafold3_databases/ --hhdb_prefix databases/pdb_sort90/hhsuitedb3 --hhmake_binary tools/hhsuite-3.2.0/bin/hhmake --hhsearch_binary tools/hhsuite-3.2.0/bin/hhsearch
-
 ```
 This step will create a config.json file in the current working directory(prestoi) with the following information.
 ```json
