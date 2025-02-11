@@ -29,7 +29,7 @@ Using this system, MULTICOM4 achieved remarkable success, ranking 1st in protein
 - **Average Runtime**: Varies by target length, intended stoichiometries, and GPU memory. Inputs with up to **5,120 tokens** fit on an NVIDIA A100 or H100 (80 GB).
 Example : Rutime of CASP16 target H0208
 Sequence Lengths : Chain A : 328, Chain B : 318 <br />
-Number of models generated per stoichiometry :- 25 <br />
+Number of models generated per stoichiometry : 25 <br />
 Device Configuration for running PreStoi and AlphaFold3:- CPU : AMD EPYC 7643 2.3 Ghz, RAM : 512 GB, GPU : One Nvidia A100 (80 GB) <br />
 The average runtime of testing all 9 stoichiometry candidates (A1B1, A1B2, A1B3, A2B1, A2B2, A2B3, A3B1, A3B2, A3B3) is 266 minutes. 
 
