@@ -596,6 +596,10 @@ if __name__ == "__main__":
         config = json.load(f)
 
     os.makedirs(args.output_path, exist_ok=True)
+    target_name = os.path.splitext(os.path.basename(args.input_fasta))[0]
+    target_output_path = os.path.join(args.output_path,target_name)
+
+    os.makedirs(target_output_path, exist_ok=True)
     af3_db_path = config["af3_db_path"]
     uniref90_database = os.path.join(af3_db_path, 'uniref90_2022_05.fa')
     hhdb_prefix = config["hhdb_prefix"]
@@ -613,7 +617,7 @@ if __name__ == "__main__":
     is_homomer = len(set([record.seq for record in sequences])) == 1
     subunit_templates, sequence_map = process_unique_sequences(
         subunit_sequences,
-        args.output_path,
+        target_output_path,
         uniref90_database,
         hhmake_binary,
         hhsearch_binary,
@@ -621,21 +625,25 @@ if __name__ == "__main__":
     )
     
     # Determine possible subunit copies based on templates
-    pdb_folder = os.path.join(args.output_path, 'templates')
+    pdb_folder = os.path.join(target_output_path, 'templates')
     os.makedirs(pdb_folder, exist_ok=True)
     possible_copies = determine_subunit_copies(subunit_templates, pdb_folder, is_homomer)
 
     # Print possible copy numbers for each subunit
-    # print(possible_copies)
+    print(possible_copies)
+    result_content = []
     for subunit, copies in possible_copies.items():
         unique_copies = set(copies)    
         print(f"Subunit {subunit}: Possible Copies - {sorted(unique_copies)}")
+        # result_content.append(f"Subunit {subunit}: Possible Copies - {sorted(unique_copies)}")
     
     combos = generate_combinations(possible_copies)
     print("Stoichiometry candidates:", combos)
+    result_content.append(f"Stoichiometry candidates: {combos}")
     
     if is_homomer:
-        print("No sufficient evidence to make template-based stoichiometry prediction")
+        # print("No sufficient evidence to make template-based stoichiometry prediction")
+        result_content.append("No sufficient evidence to make template-based stoichiometry prediction")
     else:
         # Final step: Single-template logic vs. fallback
         final_stoichiometry = finalize_confident_stoichiometry(
@@ -645,9 +653,18 @@ if __name__ == "__main__":
             subunit_sequences=subunit_sequences
         )
         if len(final_stoichiometry) > 0:
-            print("Template-based stoichiometry prediction:", final_stoichiometry)
+            # print("Template-based stoichiometry prediction:", final_stoichiometry)
+            result_content.append(f"Template-based stoichiometry prediction: {final_stoichiometry}")
         else:
-            print("No sufficient evidence to make template-based stoichiometry prediction")
+            # print("No sufficient evidence to make template-based stoichiometry prediction")
+            result_content.append("No sufficient evidence to make template-based stoichiometry prediction")
+    
+    print("\n".join(result_content))
+    
+    with open(os.path.join(target_output_path,"template_based_prediction.txt"), "w") as file:
+        for item in result_content:
+            file.write(item + "\n")
+    
     
 
 
