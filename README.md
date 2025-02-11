@@ -52,6 +52,7 @@ Then run the following commands to install the required python packages:
 ```
 mamba install -y -c bioconda hmmer
 pip install pandas
+pip install biopython
 ```
 
 ### 3. Download databases and tools to make template-based predictions

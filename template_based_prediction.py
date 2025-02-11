@@ -590,7 +590,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
     ## Get Alphafold3 configurations
     if not os.path.exists("config.json"):
-        print("Please run configure_af3.py first to create a config.json file containing af3_program_path,af3_params_path, and af3_db_path")
+        print("Please run configure.py first to create a config.json file containing af3_program_path, af3_params_path, af3_db_path, hhsearch_binary, hhmake_binary, and hhdb_prefix")
         exit()
     with open("config.json", "r") as f:
         config = json.load(f)
@@ -603,7 +603,7 @@ if __name__ == "__main__":
     hhmake_binary = config["hhmake_binary"]
 
     if not os.path.exists(uniref90_database):
-        print("Please run configure.py first to create a config.json file containing af3_program_path,af3_params_path, and af3_db_path")
+        print("Please run configure.py first to create a config.json file containing af3_program_path, af3_params_path, af3_db_path, hhsearch_binary, hhmake_binary, and hhdb_prefix")
         exit()
 
     sequences = parse_fasta(args.input_fasta)
