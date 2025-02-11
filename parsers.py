@@ -60,6 +60,7 @@ class TemplateHit:
     hit_sequence: str
     indices_query: List[int]
     indices_hit: List[int]
+    e_value: Optional[float]
 
 
 def parse_fasta(fasta_string: str) -> Tuple[Sequence[str], Sequence[str]]:
@@ -423,7 +424,7 @@ def _parse_hhr_hit(detailed_lines: Sequence[str]) -> TemplateHit:
         raise RuntimeError(
             'Could not parse section: %s. Expected this: \n%s to contain summary.' %
             (detailed_lines, detailed_lines[2]))
-    (_, _, _, aligned_cols, _, _, sum_probs, _) = [float(x)
+    (_, e_value, _, aligned_cols, _, _, sum_probs, _) = [float(x)
                                                    for x in match.groups()]
 
     # The next section reads the detailed comparisons. These are in a 'human
@@ -483,6 +484,7 @@ def _parse_hhr_hit(detailed_lines: Sequence[str]) -> TemplateHit:
         index=number_of_hit,
         name=name_hit,
         aligned_cols=int(aligned_cols),
+        e_value=e_value,
         sum_probs=sum_probs,
         query=query,
         hit_sequence=hit_sequence,

@@ -392,7 +392,7 @@ def get_single_template_for_all_subunits(subunit_templates):
 
         # Store sum_probs for each template
         for t in templates:
-            template_scores[t.name[:4].lower()].append(t.sum_probs)
+            template_scores[t.name[:4].lower()].append(t.e_value)
 
     # Find templates that appear in all subunits
     common = set.intersection(*all_sets)
@@ -403,7 +403,7 @@ def get_single_template_for_all_subunits(subunit_templates):
     sorted_templates = sorted(
         common, 
         key=lambda x: sum(template_scores[x]) / len(template_scores[x]), 
-        reverse=True  # Sort in descending order (highest sum_probs first)
+        reverse=False  # Sort in descending order (lowest e_value first)
     )
     
     return sorted_templates
@@ -447,8 +447,13 @@ def handle_single_template_stoich(
     #   inferred_stoich_str = "A3B2"
     #   cluster_map = {'A': ['Chain1','Chain2','Chain3'], 'B': ['Chain4','Chain5']}
 
-    # Parse that stoich string into a dict, e.g. {'A':3, 'B':2}
-    parsed_stoich = parse_stoichiometry(inferred_stoich_str)
+    global_stoichiometry = get_pdb_stoichiometry([template_code]).get(template_code)[0]
+    if global_stoichiometry and re.match(r"^A\d+$", global_stoichiometry):
+        # If stoichiometry indicates a homo-multimer (e.g., A2, A4, etc.)
+        parsed_stoich = parse_stoichiometry(global_stoichiometry)
+    else:
+        # Parse that stoich string into a dict, e.g. {'A':3, 'B':2}
+        parsed_stoich = parse_stoichiometry(inferred_stoich_str)
     # print(chain_seqs)
 
     # 3) Identify which cluster label each subunit matches best
@@ -543,7 +548,7 @@ def finalize_confident_stoichiometry(subunit_templates, possible_copies, pdb_fol
 
     return ""
 
-def process_unique_sequences(sequences, output_path, uniref90_db, hhmake_binary, hhsearch_binary, hhdb_prefix):
+def process_unique_sequences(sequences, output_path, uniref90_db, hhmake_binary, hhsearch_binary, hhdb_prefix, n_topn):
     """Process unique sequences for homomultimer optimization."""
     sequence_map = {}
     unique_sequences = {}
@@ -576,8 +581,8 @@ def process_unique_sequences(sequences, output_path, uniref90_db, hhmake_binary,
             hhr_file = os.path.join(output_path, f"{subunit}.hhr")
             hhsearch_result = run_hhsearch(hhsearch_binary, hmm_file, hhr_file, hhdb_prefix)
             parsed_templates = parse_hhr(hhsearch_result)
-
-            subunit_templates[subunit] = sorted(parsed_templates, key=lambda x: x.sum_probs, reverse=True)[:10]
+            
+            subunit_templates[subunit] = sorted([template for template in parsed_templates if template.e_value < 1], key=lambda x: x.e_value)[:n_topn]
 
     return subunit_templates, sequence_map
 
@@ -586,6 +591,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('--input_fasta',type=str,required=True)
     parser.add_argument('--output_path', type=str, required=True)
+    parser.add_argument('--n_topn', type=int, default=20)
 
     args = parser.parse_args()
     ## Get Alphafold3 configurations
@@ -621,7 +627,8 @@ if __name__ == "__main__":
         uniref90_database,
         hhmake_binary,
         hhsearch_binary,
-        hhdb_prefix
+        hhdb_prefix,
+        args.n_topn
     )
     
     # Determine possible subunit copies based on templates
@@ -638,7 +645,6 @@ if __name__ == "__main__":
         # result_content.append(f"Subunit {subunit}: Possible Copies - {sorted(unique_copies)}")
     
     combos = generate_combinations(possible_copies)
-    print("Stoichiometry candidates:", combos)
     result_content.append(f"Stoichiometry candidates: {combos}")
     
     if is_homomer:
