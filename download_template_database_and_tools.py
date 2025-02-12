@@ -53,7 +53,7 @@ if __name__ == '__main__':
     ### (2) Download databases
     os.chdir(database_dir)
 
-    db_lst = ["pdb_sort90"]
+    db_lst = ["pdb_sort90_2024"]
     for db in db_lst:
         print("Download "+db)
         if os.path.exists(os.path.join(database_dir, db)):
