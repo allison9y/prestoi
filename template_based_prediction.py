@@ -231,7 +231,7 @@ def match_chains_to_stoichiometry(input_sequence, template_name, pdb_file):
         print(f"No chain sequences found for template {template_name}")
         return None
 
-    global_stoichiometry = get_pdb_stoichiometry([template_name]).get(template_name)[0]
+    global_stoichiometry = ''.join(get_pdb_stoichiometry([template_name]).get(template_name))
     if global_stoichiometry and re.match(r"^A\d+$", global_stoichiometry):
         # If stoichiometry indicates a homo-multimer (e.g., A2, A4, etc.)
         parsed_stoichiometry = parse_stoichiometry(global_stoichiometry)
@@ -247,6 +247,7 @@ def match_chains_to_stoichiometry(input_sequence, template_name, pdb_file):
         }
         
     # Infer stoichiometry and clustering from chain IDs
+    
     inferred_stoichiometry, cluster_map = infer_stoichiometry_from_chains(chain_sequences)
 
     # cluster_map is like {'A': ['Chain1', 'Chain2'], 'B': ['Chain3', 'Chain4']}
@@ -461,7 +462,7 @@ def handle_single_template_stoich(
     #   inferred_stoich_str = "A3B2"
     #   cluster_map = {'A': ['Chain1','Chain2','Chain3'], 'B': ['Chain4','Chain5']}
 
-    global_stoichiometry = get_pdb_stoichiometry([template_code]).get(template_code)[0]
+    global_stoichiometry = ''.join(get_pdb_stoichiometry([template_code]).get(template_code))
     if global_stoichiometry and re.match(r"^A\d+$", global_stoichiometry):
         # If stoichiometry indicates a homo-multimer (e.g., A2, A4, etc.)
         parsed_stoich = parse_stoichiometry(global_stoichiometry)
