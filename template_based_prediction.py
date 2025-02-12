@@ -86,7 +86,7 @@ def run_hhsearch(hhsearch_binary, hmm_file, output_hhr, hhdb_prefix):
 
         subprocess.run(cmd, check=True)
 
-    with open(output_hhr) as f:
+    with open(output_hhr, encoding='ISO-8859-1') as f:
         hhr = f.read()
     return hhr
 
@@ -123,17 +123,21 @@ def extract_chain_sequences(pdb_file):
     Returns:
         dict: Dictionary mapping chain IDs to their sequences.
     """
-    parser = PDBParser(QUIET=True)
-    structure = parser.get_structure("protein", pdb_file)
-    ppb = PPBuilder()
-    chain_sequences = {}
+    chain_sequences = None
+    try:
+        parser = PDBParser(QUIET=True)
+        structure = parser.get_structure("protein", pdb_file)
+        ppb = PPBuilder()
+        chain_sequences = {}
 
-    for model in structure:
-        for chain in model:
-            peptides = ppb.build_peptides(chain)
-            if peptides:  # Check if there are polypeptides in the chain
-                sequence = "".join([str(peptide.get_sequence()) for peptide in peptides])
-                chain_sequences[chain.id] = sequence
+        for model in structure:
+            for chain in model:
+                peptides = ppb.build_peptides(chain)
+                if peptides:  # Check if there are polypeptides in the chain
+                    sequence = "".join([str(peptide.get_sequence()) for peptide in peptides])
+                    chain_sequences[chain.id] = sequence
+    except Exception:
+        print(f"Cannot read the {pdb_file} file, check the format for this file")
 
     return chain_sequences
 
@@ -223,6 +227,9 @@ def match_chains_to_stoichiometry(input_sequence, template_name, pdb_file):
     """
     # Extract chain sequences from PDB
     chain_sequences = extract_chain_sequences(pdb_file)
+    if not chain_sequences:
+        print(f"No chain sequences found for template {template_name}")
+        return None
 
     global_stoichiometry = get_pdb_stoichiometry([template_name]).get(template_name)[0]
     if global_stoichiometry and re.match(r"^A\d+$", global_stoichiometry):
@@ -299,8 +306,15 @@ def determine_subunit_copies(subunit_templates, pdb_folder, is_homomer):
                     print(f"{template_name}: cannot download the pdb1 for this template")
                     continue
 
+            if len(open(pdb_file).readlines()) <= 1:
+                print(f"{template_name}: the pdb1 file is empty, skip")
+                continue
+
             # Directly match subunit sequence to stoichiometry from the PDB's chain sequences
             match_dict = match_chains_to_stoichiometry(template.hit_sequence.replace('-', ''), template_name, pdb_file)
+
+            if match_dict is None:
+                continue
 
             copies = match_dict['num_of_copies']
 
@@ -583,6 +597,7 @@ def process_unique_sequences(sequences, output_path, uniref90_db, hhmake_binary,
             parsed_templates = parse_hhr(hhsearch_result)
             
             subunit_templates[subunit] = sorted([template for template in parsed_templates if template.e_value < 1], key=lambda x: x.e_value)[:n_topn]
+            # subunit_templates[subunit] = sorted(parsed_templates, key=lambda x: x.e_value, reverse=False)[:n_topn]
 
     return subunit_templates, sequence_map
 
