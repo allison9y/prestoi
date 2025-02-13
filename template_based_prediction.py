@@ -170,7 +170,7 @@ def infer_stoichiometry_from_chains(chain_sequences, identity_threshold=0.9):
     """
     # cluster_representatives maps label -> list_of_chain_ids
     cluster_representatives = {}
-    chain_labels = iter("ABCDEFGHIJKLMNOPQRSTUVWXYZ")  # Label generator
+    chain_labels = iter("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789")  # Label generator
 
     # Convert dict to list to iterate items consistently
     chain_items = list(chain_sequences.items())  # [(chain_id, chain_seq), ...]
@@ -227,6 +227,7 @@ def match_chains_to_stoichiometry(input_sequence, template_name, pdb_file):
     """
     # Extract chain sequences from PDB
     chain_sequences = extract_chain_sequences(pdb_file)
+    
     if not chain_sequences:
         print(f"No chain sequences found for template {template_name}")
         return None
@@ -455,7 +456,7 @@ def handle_single_template_stoich(
     if len(chain_seqs) < len(subunit_sequences):
         print(f"The chain number in {template_code} is less than the number of input subunits")
         return None
-
+    
     # 2) Infer stoichiometry from chain IDs -> we get a string (e.g. "A3B2") and cluster_map
     inferred_stoich_str, cluster_map = infer_stoichiometry_from_chains(chain_seqs)
     # Example:
