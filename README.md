@@ -8,7 +8,7 @@ Using this system, MULTICOM4 achieved remarkable success, ranking 1st in protein
 ## The workflow of the Stoichiometry Prediction system utilized by MULTICOM4 in CASP16
 ![Program workflow](images/workflow.png)
 
-### This program handles the AlphaFold3-based stoichiometry prediction part in the above diagram.
+### This program handles both the template-based stoichiometry prediction and the AlphaFold3-based stoichiometry prediction part in the above diagram.
 
 
 
