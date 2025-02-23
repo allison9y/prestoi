@@ -119,7 +119,7 @@ This step will create a config.json file in the current working directory(presto
 }
 ```
 
-Note: This step only requires running once. However, this can be run again if the three paths given change. Make sure the paths are valid.
+Note: This step only requires running once. However, this can be run again if any of the above paths change. Make sure the paths are valid.
 
 # Inference
 ## Run the template-based stoichiometry prediction
